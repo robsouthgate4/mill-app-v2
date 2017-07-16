@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
 
+import { ArchiveList } from '../components/ArchiveList'
+
 // include our archiveRequest action
 import { archiveCreate, archiveRequest } from './actions'
 
@@ -71,6 +73,7 @@ class Archives extends Component {
     return (
       <div className="archives">
         <h2>Hello from archives</h2>
+        <ArchiveList />
       </div>
     )
   }

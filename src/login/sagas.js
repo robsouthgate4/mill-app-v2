@@ -53,20 +53,16 @@ function* logout () {
 function* loginFlow (email, password) {
   let token
   try {
-    // try to call to our loginApi() function.  Redux Saga
-    // will pause here until we either are successful or
-    // receive an error
     token = yield call(loginApi, email, password)
 
-    // inform Redux to set our client token, this is non blocking so...
     yield put(setClient(token))
 
-    // .. also inform redux that our login was successful
     yield put({ type: LOGIN_SUCCESS })
-    // set a stringified version of our token to localstorage on our domain
+
     localStorage.setItem('token', JSON.stringify(token))
 
     browserHistory.push('/archives')
+
   } catch (error) {
     // error? send it to redux
     yield put({ type: LOGIN_ERROR, error })

@@ -1,0 +1,29 @@
+{
+    "archives": [
+        {
+            "id": 1,
+            "title": "lorem ipsum",
+            "summary": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+            "files": [],
+            "beamId": 1234,
+            "categories": ["one", "two"],
+            "credits": [
+                {
+                    "title": "lorem",
+                    "items": [
+                        {
+
+                        },
+                        {
+
+                        },
+                        {
+                            
+                        }
+                    ]
+                }
+            ],
+            "enabled": false
+        }
+    ]
+}
