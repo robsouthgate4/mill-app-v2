@@ -1,20 +1,11 @@
 import React, {PropTypes} from 'react'
 import logo from './logo.svg'
-import Header from './components/Header'
+import { Header } from './components'
 import './App.css'
 
 const App = props => {
     return (
-        <div className="App">
-            {
-            props.location.pathname !== '/login'
-                ? <Header />
-                : ''
-            }
-            <section className="App-body">
-                {props.children}
-            </section>
-        </div>
+        <div></div>
     )
 }
 

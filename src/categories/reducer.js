@@ -15,7 +15,7 @@ const initialState = {
   errors: [],
 }
 
-const reducer = function categoryReducer (state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CATEGORY_CREATING:
       return {

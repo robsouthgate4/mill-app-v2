@@ -1,29 +1,975 @@
 {
-    "archives": [
-        {
-            "id": 1,
-            "title": "lorem ipsum",
-            "summary": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-            "files": [],
-            "beamId": 1234,
-            "categories": ["one", "two"],
-            "credits": [
+    "archives": [{
+            "id": 15072,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
                 {
-                    "title": "lorem",
-                    "items": [
-                        {
-
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
                         },
                         {
-
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
                         },
                         {
-                            
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
                         }
                     ]
                 }
             ],
-            "enabled": false
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
+        },
+        {
+            "id": 15078,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
+                {
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
+                        },
+                        {
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
+                        },
+                        {
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
+                        }
+                    ]
+                }
+            ],
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
+        },
+        {
+            "id": 15080,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
+                {
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
+                        },
+                        {
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
+                        },
+                        {
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
+                        }
+                    ]
+                }
+            ],
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
+        },
+        {
+            "id": 15079,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
+                {
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
+                        },
+                        {
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
+                        },
+                        {
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
+                        }
+                    ]
+                }
+            ],
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
+        },
+        {
+            "id": 15346,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
+                {
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
+                        },
+                        {
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
+                        },
+                        {
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
+                        }
+                    ]
+                }
+            ],
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
+        },
+        {
+            "id": 15087,
+            "name": "Milk - Champion",
+            "created_at": "2014-08-27T17:35:48+01:00",
+            "updated_at": "2015-06-11T14:20:52+01:00",
+            "tags": [{
+                    "name": "Milk"
+                },
+                {
+                    "name": "Athlete"
+                },
+                {
+                    "name": "Olympics"
+                },
+                {
+                    "name": "Podium"
+                },
+                {
+                    "name": "Shot Put"
+                },
+                {
+                    "name": "Javelin"
+                },
+                {
+                    "name": "Groceries"
+                },
+                {
+                    "name": "Store"
+                },
+                {
+                    "name": "Aisle"
+                },
+                {
+                    "name": "Spectator"
+                },
+                {
+                    "name": "Crowd"
+                },
+                {
+                    "name": "Medals"
+                },
+                {
+                    "name": "Relay"
+                },
+                {
+                    "name": "Baton"
+                },
+                {
+                    "name": "Sweat suit"
+                },
+                {
+                    "name": "runner"
+                },
+                {
+                    "name": "Got Milk"
+                },
+                {
+                    "name": "Race"
+                }
+            ],
+            "credits": [{
+                    "name": "Agency",
+                    "credit_details": [{
+                            "name": "Agency",
+                            "content": "Goodby, Silverstein & Partners"
+                        },
+                        {
+                            "name": "Producer",
+                            "content": "Leila Seghrouchni"
+                        },
+                        {
+                            "name": "Creatives",
+                            "content": "Andrew Livingston, Simon Bruyn"
+                        }
+                    ]
+                },
+                {
+                    "name": "Production",
+                    "credit_details": [{
+                            "name": "Production Company",
+                            "content": "Dummy Films"
+                        },
+                        {
+                            "name": "Director",
+                            "content": "Harold Einstein"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Eric Liney"
+                        }
+                    ]
+                },
+                {
+                    "name": "Editorial",
+                    "credit_details": [{
+                            "name": "Editing Company",
+                            "content": "Arcade"
+                        },
+                        {
+                            "name": "Editor",
+                            "content": "Fanny Cruz"
+                        },
+                        {
+                            "name": "Edit Assist",
+                            "content": "Sila Soyer"
+                        }
+                    ]
+                },
+                {
+                    "name": "VFX",
+                    "credit_details": [{
+                            "name": "VFX Company",
+                            "content": "The Mill"
+                        },
+                        {
+                            "name": "Executive Producer",
+                            "content": "Jo Arghiris"
+                        },
+                        {
+                            "name": "VFX Producer",
+                            "content": "Adam Reeb"
+                        },
+                        {
+                            "name": "Shoot Supervisor",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Lead Artists",
+                            "content": "Tara DeMarco"
+                        },
+                        {
+                            "name": "2D Artists",
+                            "content": "Timothy Crabtree, Jake Albers"
+                        },
+                        {
+                            "name": "3D Artists",
+                            "content": "Lu Meng-Yang, Mike Di Nocco, Matt Neapolitan"
+                        },
+                        {
+                            "name": "Colourist",
+                            "content": "Greg Reese"
+                        },
+                        {
+                            "name": "Art Department",
+                            "content": "Jeff Langlois, Ashley Forbito"
+                        },
+                        {
+                            "name": "Production Coordinator",
+                            "content": "Kris Drenzek"
+                        }
+                    ]
+                }
+            ],
+            "_links": {
+                "thumbnail": {
+                    "href": "/api/images/thumbnails/15072/stream"
+                },
+                "video": {
+                    "href": "/api/videos/15072/stream"
+                }
+            }
         }
     ]
 }

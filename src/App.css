@@ -427,6 +427,11 @@ div#main {
     color: #323232;
 }
 
+.App-body {
+    max-width: 956px;
+    margin: 20px auto;
+}
+
 
 /*
 Footer
@@ -470,6 +475,10 @@ table td {
 
 th, td {
     background: #FFFFFF;
+}
+
+.archives {
+    margin-top: 20px;
 }
 
 .archives_tbody tr td.archive_enabled_0, .archives_tbody tr td.archive_enabled_1 {
@@ -1981,7 +1990,7 @@ input[type="text"], input[type="password"], #main textarea {
 
 .current_selected {}
 
-.current_selected a {
+.current_selected {
     color: #0286ED !important;
     border-bottom: 3px solid #0286ED;
 }

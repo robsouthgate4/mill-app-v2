@@ -3,8 +3,12 @@ import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-// add IndexRoute above and the helpers below
+//import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { ArchiveDetailEdit, Header } from './components'
+import ArchiveDetail from './components/ArchiveDetail'
+
 import {
   checkIndexAuthorization,
   checkWidgetAuthorization,
@@ -46,16 +50,23 @@ const store = createStore(
 // Begin our Index Saga
 sagaMiddleware.run(IndexSagas)
 
+//const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App} >
-        <IndexRoute onEnter={checkIndexAuthorization(store)} />
-        <Route path="/login" component={Login} />
-        <Route path="/archives" component={Archives} />
-        <Route path="/categories" component={Categories} />
-      </Route>
+    <Router>
+        <div className='app'>
+            <Header />
+            <div className="App-body">
+                <Switch>
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/archives" component={Archives} />
+                    <Route exact path="/archives/:id" component={ArchiveDetail} />
+                    <Route exact path="/archives/:id/edit" component={ArchiveDetail} />
+                    <Route exact path="/categories" component={Categories} />
+                </Switch>
+            </div>
+        </div>
     </Router>
   </Provider>,
   document.getElementById('root'),

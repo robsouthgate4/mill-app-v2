@@ -4,19 +4,20 @@ import { handleApiErrors } from '../lib/api-errors'
 import {
   ARCHIVE_CREATING,
   ARCHIVE_REQUESTING,
+  ARCHIVE_REQUESTING_BY_ID
 } from './constants'
 
 import {
   archiveCreateSuccess,
   archiveCreateError,
   archiveRequestSuccess,
+  archiveRequestByIdSuccess,
   archiveRequestError,
 } from './actions'
 
-const archivesUrl = `${process.env.REACT_APP_API_URL}/api/archives`
+const archivesUrl = `${process.env.REACT_APP_LOCAL_URL}`
 
-// Nice little helper to deal with the response
-// converting it to json, and handling errors
+/* Helper function to deal with requests */
 function handleRequest (request) {
   return request
     .then(handleApiErrors)
@@ -26,14 +27,14 @@ function handleRequest (request) {
 }
 
 function archiveCreateApi (client, archive) {
-  const url = `${archivesUrl}/${client.id}/archives`
+  const url = `${archivesUrl}/archives`
   const request = fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       // passes our token as an "Authorization" header in
       // every POST request.
-      Authorization: client.token.id || undefined, // will throw an error if no login
+      //Authorization: client.token.id || undefined, // will throw an error if no login
     },
     body: JSON.stringify(archive),
   })
@@ -45,12 +46,7 @@ function* archiveCreateFlow (action) {
   try {
     const { client, archive } = action
     const createdArchive = yield call(archiveCreateApi, client, archive)
-    // creates the action with the format of
-    // {
-    //   type: ARCHIVE_CREATE_SUCCESS,
-    //   archive,
-    // }
-    // Which we could do inline here, but again, consistency
+
     yield put(archiveCreateSuccess(createdArchive))
   } catch (error) {
     // same with error
@@ -58,15 +54,15 @@ function* archiveCreateFlow (action) {
   }
 }
 
-function archiveRequestApi (client) {
-  const url = `${archivesUrl}/${client.id}/archives`
+function archiveRequestApi (client, id) {
+  const url = !!id ? `${archivesUrl}/archives/${id}` : `${archivesUrl}/archives/`
   const request = fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       // passe our token as an "Authorization" header
-      Authorization: client.token.id || undefined,
-    },
+      //Authorization: client.token.id || undefined,
+    }
   })
 
   return handleRequest(request)
@@ -74,22 +70,33 @@ function archiveRequestApi (client) {
 
 function* archiveRequestFlow (action) {
   try {
-    // grab the client from our action
-    const { client } = action
-    // call to our archiveRequestApi function with the client
+    const { client} = action
     const archives = yield call(archiveRequestApi, client)
-    // dispatch the action with our archives!
+
     yield put(archiveRequestSuccess(archives))
+
+  } catch (error) {
+    yield put(archiveRequestError(error))
+  }
+}
+
+function* archiveRequesByIdFlow (action) {
+  try {
+    const { client, id } = action
+    const archive = yield call(archiveRequestApi, client, id)
+
+    yield put(archiveRequestByIdSuccess(archive))
+
   } catch (error) {
     yield put(archiveRequestError(error))
   }
 }
 
 function* archivesWatcher () {
-  // each of the below RECEIVES the action from the .. action
   yield [
     takeLatest(ARCHIVE_CREATING, archiveCreateFlow),
     takeLatest(ARCHIVE_REQUESTING, archiveRequestFlow),
+    takeLatest(ARCHIVE_REQUESTING_BY_ID, archiveRequesByIdFlow)
   ]
 }
 
