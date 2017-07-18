@@ -1,10 +1,16 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { handleApiErrors } from '../lib/api-errors'
+
+import {
+    archiveCreateApi,
+    archiveRequestApi,
+    archiveUpdateApi,
+    archiveRequestById  } from '../api/archiveApi'
 
 import {
   ARCHIVE_CREATING,
   ARCHIVE_REQUESTING,
-  ARCHIVE_REQUESTING_BY_ID
+  ARCHIVE_REQUESTING_BY_ID,
+  ARCHIVE_UPDATING
 } from './constants'
 
 import {
@@ -12,35 +18,10 @@ import {
   archiveCreateError,
   archiveRequestSuccess,
   archiveRequestByIdSuccess,
+  archiveUpdateError,
+  archiveUpdateSuccess,
   archiveRequestError,
 } from './actions'
-
-const archivesUrl = `${process.env.REACT_APP_LOCAL_URL}`
-
-/* Helper function to deal with requests */
-function handleRequest (request) {
-  return request
-    .then(handleApiErrors)
-    .then(response => response.json())
-    .then(json => json)
-    .catch((error) => { throw error })
-}
-
-function archiveCreateApi (client, archive) {
-  const url = `${archivesUrl}/archives`
-  const request = fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // passes our token as an "Authorization" header in
-      // every POST request.
-      //Authorization: client.token.id || undefined, // will throw an error if no login
-    },
-    body: JSON.stringify(archive),
-  })
-
-  return handleRequest(request)
-}
 
 function* archiveCreateFlow (action) {
   try {
@@ -54,24 +35,10 @@ function* archiveCreateFlow (action) {
   }
 }
 
-function archiveRequestApi (client, id) {
-  const url = !!id ? `${archivesUrl}/archives/${id}` : `${archivesUrl}/archives/`
-  const request = fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // passe our token as an "Authorization" header
-      //Authorization: client.token.id || undefined,
-    }
-  })
-
-  return handleRequest(request)
-}
-
 function* archiveRequestFlow (action) {
   try {
-    const { client} = action
-    const archives = yield call(archiveRequestApi, client)
+    const { client, page, id = null } = action
+    const archives = yield call(archiveRequestApi, client, id, page)
 
     yield put(archiveRequestSuccess(archives))
 
@@ -80,10 +47,11 @@ function* archiveRequestFlow (action) {
   }
 }
 
-function* archiveRequesByIdFlow (action) {
+function* archiveRequestByIdFlow (action) {
   try {
-    const { client, id } = action
-    const archive = yield call(archiveRequestApi, client, id)
+
+    const { client, id, page = 1 } = action
+    const archive = yield call(archiveRequestApi, client, id, page)
 
     yield put(archiveRequestByIdSuccess(archive))
 
@@ -92,11 +60,24 @@ function* archiveRequesByIdFlow (action) {
   }
 }
 
+function* archiveUpdateFlow (action) {
+    try {
+        const { client, id, archive } = action
+        const responseArchive = yield call(archiveUpdateApi, client, id, archive)
+
+        console.log(responseArchive)
+
+    } catch(error) {
+        //yield put(archiveUpdateError(error))
+    }
+}
+
 function* archivesWatcher () {
   yield [
     takeLatest(ARCHIVE_CREATING, archiveCreateFlow),
     takeLatest(ARCHIVE_REQUESTING, archiveRequestFlow),
-    takeLatest(ARCHIVE_REQUESTING_BY_ID, archiveRequesByIdFlow)
+    takeLatest(ARCHIVE_REQUESTING_BY_ID, archiveRequestByIdFlow),
+    takeLatest(ARCHIVE_UPDATING, archiveUpdateFlow)
   ]
 }
 

@@ -8,15 +8,20 @@ import Errors from '../notifications/Errors'
 
 import loginRequest from './actions'
 
-// If you were testing, you'd want to export this component
-// so that you can test your custom made component and not
-// test whether or not Redux and Redux Form are doing their jobs
+
 class Login extends Component {
-    // Pass the correct proptypes in for validation
+    
     static propTypes = {
         handleSubmit: PropTypes.func,
         loginRequest: PropTypes.func,
-        login: PropTypes.shape({requesting: PropTypes.bool, successful: PropTypes.bool, messages: PropTypes.array, errors: PropTypes.array})
+        login: PropTypes.shape(
+            {
+                requesting: PropTypes.bool,
+                successful: PropTypes.bool,
+                messages: PropTypes.array,
+                errors: PropTypes.array
+            }
+        )
     }
 
     // Remember, Redux Form passes the form values to our handler

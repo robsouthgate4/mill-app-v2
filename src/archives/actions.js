@@ -6,7 +6,10 @@ import {
     ARCHIVE_REQUEST_SUCCESS,
     ARCHIVE_REQUEST_ERROR,
     ARCHIVE_REQUESTING_BY_ID,
-    ARCHIVE_REQUEST_BY_ID_SUCCESS
+    ARCHIVE_REQUEST_BY_ID_SUCCESS,
+    ARCHIVE_UPDATING,
+    ARCHIVE_UPDATE_SUCCESS,
+    ARCHIVE_UPDATE_ERROR
 } from './constants'
 
 export const archiveCreate = (client, archive) => {
@@ -21,8 +24,12 @@ export const archiveCreateError = (error) => {
     return {type: ARCHIVE_CREATE_ERROR, error}
 }
 
-export const archiveRequest = (client, id) => {
-    return {type: ARCHIVE_REQUESTING, client, id}
+export const archiveRequest = (client, id, page) => {
+    return {type: ARCHIVE_REQUESTING, client, id, page}
+}
+
+export const archiveUpdate = (client, id, archive) => {
+    return {type: ARCHIVE_UPDATING, client, id, archive}
 }
 
 export const archiveRequestById = (client, id) => {

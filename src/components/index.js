@@ -1,3 +1,5 @@
 export { ArchiveDetailEdit } from './ArchiveDetailEdit'
 export { ArchiveList } from './ArchiveList'
 export { Header } from './Header'
+export { CreditItem } from './CreditItem'
+export { CreditList } from './CreditList'

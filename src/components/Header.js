@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import logo from '../../assets/images/admin/header/logotype.png'
+import logo from '../assets/images/admin/header/logotype.png'
 import { Link, NavLink } from 'react-router-dom'
 
 export const Header = (props) =>{

@@ -7,34 +7,23 @@ export const ArchiveListItem = (props) => {
         <Link to={`/archives/${archive.id}`}>
             <div className="flex-table-cell">
                 <div>
-                    <div className={`boolean-icon enabled_0`}></div>
+                    <div className={`boolean-icon enabled_${archive.enabled}`}></div>
                 </div>
             </div>
             <div className="flex-table-cell thumbnail-cell">
-                <img alt="Stream" height="50" src={`${process.env.REACT_APP_API_URL}${archive._links.thumbnail.href}`} width="80"/>
+                <img alt="Stream" height="50" src={`${archive._links.thumbnail.href}`} width="80"/>
             </div>
             <div className="flex-table-cell">
                 {archive.name}
             </div>
             <div className="flex-table-cell">
-                <div>
-                    <div>
-                        The Mill
-                    </div>
-                </div>
+                {archive.brand}
             </div>
             <div className="flex-table-cell">
-                <div>
-                    film, sport
-                </div>
+                film, sport
             </div>
             <div className="flex-table-cell">
-                <div>
-                    11th Jul 17, 23:19
-                </div>
-                <div>
-                    &nbsp;
-                </div>
+                {archive.created_at}
             </div>
         </Link>
     </div>

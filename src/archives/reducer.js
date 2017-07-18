@@ -12,6 +12,10 @@ import {
 const initialState = {
     list: [],
     archiveById: null,
+    orderBy: 'title',
+    orderDir: 'asc',
+    page: 1,
+    limit: 25,
     requesting: false,
     successful: false,
     messages: [],
@@ -69,6 +73,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 requesting: false,
                 successful: true,
+                page: action.page,
                 messages: [
                     {
                         body: 'Fetching archives...!',
