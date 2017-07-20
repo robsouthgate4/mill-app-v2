@@ -1,12 +1,47 @@
 import React, {PropTypes} from 'react'
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import { Link } from 'react-router-dom'
+import { SortableContainer, SortableElement, SortableHandle, arrayMove } from 'react-sortable-hoc'
 
 import { CategoryListItemEdit } from './'
 
-const SortableItem = SortableElement(({value}) => <li>{value}</li>);
+
+const SortableItem = SortableElement(({value, index}) =>
+        <div className="flex-table-row">
+            <div className="flex-table-cell">
+				<i className="mill-icons_menu"></i>
+			</div>
+            <div className="flex-table-cell">
+				<div className="toggleSwitch">
+					<input className="toggleSwitch-checkbox" name="enabled" type="checkbox" value="true"/>
+                    <label className="toggleSwitch-label" htmlFor="enabled">
+                        <span className="toggleSwitch-inner"></span>
+    					<span className="toggleSwitch-switch"></span>
+                    </label>					
+				</div>
+			</div>
+            <div className="flex-table-cell category-cell">
+				<input className="large" id="categories_1_name" name="categories[1][name]" type="text" value="Array"/>
+            </div>
+            <div className="flex-table-cell">
+                1
+            </div>
+            <div className="flex-table-cell">{value.videosSynced}</div>
+            <div className="flex-table-cell delete-cell">
+				<button className="mill-icons_delete delete-category" title=""></button>
+            </div>
+        </div>
+)
+
+const SortableList = SortableContainer(({categories}) => {
+    return <div>
+                {categories.map((category, index) => (
+                        <SortableItem className="sortableitem" key={`item-${index}`} index={index} value={category} />
+                ))}
+            </div>
+})
 
 export class CategoryListEdit extends React.Component {
+
     constructor(props) {
         super(props);
     }
@@ -15,10 +50,13 @@ export class CategoryListEdit extends React.Component {
 
     }
 
+    onSortEnd({oldIndex, newIndex}) {
+        console.log(oldIndex)
+        console.log(newIndex)
+    }
+
     render() {
         const { categories } = this.props
-        const mappedCategories = categories.map((category, index) =>
-                                    <CategoryListItemEdit key={index} category={category} />)
 
         return (
             <div className="category-list-container edit">
@@ -34,7 +72,7 @@ export class CategoryListEdit extends React.Component {
         				<div className="flex-table-cell category-cell">Category</div>
         				<div className="flex-table-cell">Videos on iPad</div>
         			</div>
-                    {mappedCategories}
+                    <SortableList categories={categories} helperClass="SortableHelper" onSortEnd={this.onSortEnd} />
                 </div>
             </div>
         );
