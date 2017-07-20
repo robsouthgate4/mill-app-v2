@@ -2,14 +2,29 @@
 
 var faker = require('faker')
 
-function generateArchives() {
+function generateData() {
     var archives = []
+    var categories = []
 
     function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min)) + min;
      }
+
+    for (var i = 0; i < 20; i++) {
+
+        var name = faker.commerce.productName()
+        var enabled = faker.random.boolean()
+        var videosSynced = getRandomInt(0, 400)
+
+        categories.push({
+            name: name,
+            enabled: enabled,
+            videos_synced: videosSynced
+        })
+
+    }
 
     for (var i = 0; i < 1000; i++) {
 
@@ -27,7 +42,7 @@ function generateArchives() {
         var intro = faker.lorem.sentence()
         var summary = faker.lorem.paragraph()
 
-        for (var k = 0; k < getRandomInt(0, 20); k++ ) {
+        for (var j = 0; j < getRandomInt(0, 20); j++ ) {
 
             creditDetails.push({
                 name: faker.random.word(),
@@ -44,7 +59,7 @@ function generateArchives() {
         for (var j = 0; j < getRandomInt(0, 10); j++ ) {
             tags.push({
                 name: faker.random.word()
-            });
+            })
         }
 
         var links = {
@@ -70,14 +85,14 @@ function generateArchives() {
                 "intro": intro,
                 "summary": summary,
                 "_links": links,
-                "enabled": getRandomInt(0, 2)
+                "enabled": faker.random.boolean()
             }
         )
     }
 
-    return {"archives": archives}
+    return {"archives": archives, "categories": categories}
 }
 
 // json-server requires that you export
 // a function which generates the data set
-module.exports = generateArchives
+module.exports = generateData

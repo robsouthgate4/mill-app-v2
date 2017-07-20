@@ -14,7 +14,6 @@ export const archiveCreateApi = (client, archive) => {
     },
     body: JSON.stringify(archive),
   })
-
   return handleRequest(request)
 }
 
@@ -28,7 +27,6 @@ export const archiveRequestApi = (client, id, page) => {
       //Authorization: client.token.id || undefined,
     }
   })
-
   return handleRequest(request)
 }
 

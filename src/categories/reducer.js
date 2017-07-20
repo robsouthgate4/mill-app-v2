@@ -8,7 +8,14 @@ import {
 } from './constants'
 
 const initialState = {
-  list: [],
+  list: [
+      {
+          id: 1,
+          name: 'Mill +',
+          videos: 40,
+          enabled: true
+      }
+  ],
   requesting: false,
   successful: false,
   messages: [],

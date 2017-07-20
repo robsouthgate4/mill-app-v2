@@ -15,6 +15,7 @@ import Login from './login'
 import Archives from './archives'
 import Categories from './categories'
 
+import 'react-widgets/dist/css/react-widgets.css'
 import './App.css'
 
 // Import the index reducer and sagas

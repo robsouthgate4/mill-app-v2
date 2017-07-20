@@ -13,6 +13,7 @@ import {ArchiveDetailEdit} from '../components'
 import {archiveCreate, archiveRequest, archiveRequestById, archiveUpdate} from './actions'
 import { withRouter } from 'react-router'
 
+
 class Archives extends Component {
 
     constructor(props) {
@@ -27,15 +28,15 @@ class Archives extends Component {
     fetchArchives = (id) => {
         const {client, archiveRequest, page} = this.props
         //if (client && client.token)
-        archiveRequest(client, id, 2)
+        archiveRequest(client, id, 1)
     }
 
     updateArchive = (archive) => {
         const { client, archiveUpdate, reset, archiveById } = this.props
         const id = archiveById.id
         //if (client && client.token)
-        archiveUpdate(client, id, archive)
-        reset()
+        //archiveUpdate(client, id, archive)
+        //reset()
     }
 
     fetchById = (id) => {
@@ -47,11 +48,11 @@ class Archives extends Component {
     render() {
         const {
             match,
-            handleSubmit,
             invalid,
             archiveId,
-            archiveById,
+            initialValues,
             archives: {
+                archiveById,
                 list,
                 page,
                 requesting,
@@ -77,7 +78,7 @@ class Archives extends Component {
                     <Route path="/archives/:id/edit" render={(match) =>{
                             return <ArchiveDetailEdit
                                 {...match}
-                                handleSubmit={handleSubmit(this.updateArchive)}
+                                initialValues={initialValues}
                                 fetchById={this.fetchById}
                                 archiveById={archiveById}>
                             </ArchiveDetailEdit>
@@ -96,15 +97,17 @@ Archives.propTypes = {
     archiveCreate: React.PropTypes.func.isRequired
 }
 
-// Pull in both the Client and the Archives state
-const mapStateToProps = (state, ownProps) => ({
-    client: state.client,
-    archives: state.archives,
-    archiveById: state.archives.archiveById,
-    page: state.archives.page
-})
+const mapStateToProps = (state) => {
+    return {
+        client: state.client,
+        archives: state.archives,
+        archiveById: state.archives.archiveById,
+        page: state.archives.page
+    }
+}
 
-const connected = withRouter(connect(
+
+const connected = connect(
     mapStateToProps,
     {
         archiveRequestById,
@@ -112,7 +115,6 @@ const connected = withRouter(connect(
         archiveRequest,
         archiveUpdate
     }
-)(Archives))
-const formed = reduxForm({form: 'archiveUpdateForm'})(connected)
+)(Archives)
 
-export default formed
+export default connected

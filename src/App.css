@@ -272,20 +272,20 @@ a.button_link {
 
 
 
-.toggleSwitch-checkbox:checked+.toggleSwitch-label .toggleSwitch-inner {
+.toggleSwitch-checkbox[value=true]+.toggleSwitch-label .toggleSwitch-inner {
     margin-left: 0;
 }
 
-.toggleSwitch-checkbox:checked+.toggleSwitch-label .toggleSwitch-switch {
+.toggleSwitch-checkbox[value=true]+.toggleSwitch-label .toggleSwitch-switch {
     right: 2px;
     background-color: #0286ED;
 }
 
-.toggleSwitch-checkbox:checked+.toggleSwitch-label .toggleSwitch-switch::before {
+.toggleSwitch-checkbox[value=true]+.toggleSwitch-label .toggleSwitch-switch::before {
     content: 'On';
 }
 
-.toggleSwitch-checkbox:checked+ .toggleSwitch-label.push .toggleSwitch-switch::before {
+.toggleSwitch-checkbox[value=true]+ .toggleSwitch-label.push .toggleSwitch-switch::before {
     content: 'Yes';
 }
 
@@ -299,7 +299,7 @@ Header
 div#header {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     top: 0px;
     width: 100%;
     margin: 0 auto;
@@ -473,6 +473,8 @@ th, td {
     margin-top: 20px;
 }
 
+
+
 .archives_tbody tr td.archive_enabled_0, .archives_tbody tr td.archive_enabled_1 {
     display: none !important;
     /* TODO: remove this when response is correct */
@@ -574,29 +576,29 @@ th, td {
     border-radius: 50%;
 }
 
-.boolean-icon.enabled_0 {
+.boolean-icon.enabled_false {
     background: #9B9B9B;
 }
 §
-.boolean-icon.enabled_0:before,
-.boolean-icon.enabled_1:before {
+.boolean-icon.enabled_false:before,
+.boolean-icon.enabled_true:before {
     color: #fff;
     font-size: 11px;
     font-family: 'ProximaNova-Regular', Arial, sans-serif;
 }
 
-.boolean-icon.enabled_0:before {
+.boolean-icon.enabled_false:before {
     content: "No";
     color: #fff;
     font-size: 11px;
     font-family: 'ProximaNova-Regular', Arial, sans-serif;
 }
 
-.boolean-icon.enabled_1 {
+.boolean-icon.enabled_true {
     background: #0286ED;
 }
 
-.boolean-icon.enabled_1:before {
+.boolean-icon.enabled_true:before {
     content: "Yes";
 }
 
@@ -650,6 +652,16 @@ th, td {
     max-width: 269px;
 }
 
+.category-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.category-actions button:first-child {
+    margin-right: 5px;
+}
+
 .category-add-form label{
     font-family: 'ProximaNova-Bold';
     font-size: 11px;
@@ -662,48 +674,6 @@ th, td {
 .category-add-form input[type="submit"]{
     margin-top: 30px;
 }
-
-/* Category preview styles */
-
-.category-list-container.preview .category-list .flex-table-cell:first-child,
-.category-list-container.preview .category-list .category-cell input,
-.category-list-container.preview .edit-buttons,
-.category-list-container.preview .toggleSwitch,
-.category-list-container.preview .category-list .flex-table-cell:last-child{
-    display: none;
-}
-
-.category-list-container.preview .category-list .flex-table-row {
-    pointer-events: none !important;
-    cursor: default;
-}
-
-.category-list-container.preview .category-list .flex-table-cell p,
-.category-list-container.preview .preview-buttons{
-    display: block;
-}
-
-.category-list-container.preview .boolean-icon {
-    display: flex;
-}
-
-.category-list-container.preview .flex-table-row{
-    max-height: 50px;
-}
-
-.category-list-container.preview .category-list .category-cell {
-    justify-content: flex-start;
-    padding-left: 80px;
-}
-
-/* Category edit styles */
-
-.category-list-container .category-list .flex-table-cell p,
-.category-list-container .preview-buttons,
-.category-list-container .boolean-icon{
-    display: none;
-}
-
 
 
 
@@ -799,6 +769,10 @@ th, td {
     font-size: 14px;
 }
 
+.flex-table.category-list .flex-table-cell.category-cell {
+    justify-content: flex-start;
+}
+
 .flex-table.category-list .flex-table-cell i {
     font-size: 30px;
 }
@@ -837,13 +811,36 @@ th, td {
 
 .flex-table.category-list .flex-table-row {
     border-bottom: 1px solid #D9D9D9;
-    cursor: -webkit-grab;
-    cursor: grab;
+    /*cursor: -webkit-grab;
+    cursor: grab;*/
 }
 
 .flex-table.category-list .flex-table-row a {
     margin: 0;
     padding: 0;
+}
+
+.category-list-container .category-list .flex-table-row {
+    pointer-events: none !important;
+    cursor: default;
+}
+
+.category-list-container .category-list .flex-table-cell p,
+.category-list-container .preview-buttons{
+    display: block;
+}
+
+.category-list-container .boolean-icon {
+    display: flex;
+}
+
+.category-list-container .flex-table-row{
+    max-height: 50px;
+}
+
+.category-list-container .category-list .category-cell {
+    justify-content: flex-start;
+    padding-left: 80px;
 }
 
 
@@ -1520,6 +1517,12 @@ input+label {
     min-width: 523px;
 }
 
+.edit-archive-container.edit-screen .content .media-container {
+    margin-bottom: 20px;
+}
+
+
+
 .edit-archive-container input,
 .edit-archive-container textarea {
     width: 100%;
@@ -1676,37 +1679,6 @@ input+label {
 }
 
 
-/* Toggle edit mode */
-
-
-/*.edit-archive-container.preview input[type="text"],
-.edit-archive-container.preview textarea,
-.edit-archive-container.preview .remove,
-.edit-archive-container.preview .credit-container span,
-.edit-archive-container.preview .credit-repeater label,
-.edit-archive-container.preview .credit-repeater a,
-.edit-archive-container.preview .archive_credit_actions,
-.edit-archive-container.preview .archive_credit_detail_actions,
-.edit-archive-container.preview .default-btn.save,
-.edit-archive-container.preview .video-overlay.thumbnail,
-.edit-archive-container.preview .actions,
-.edit-archive-container.preview .toggleSwitch{
-    display: none !important;
-}*/
-
-/* Always hide image upload input */
-/*.edit-archive-container input[type="file"],
-.ipad-push-checkbox {
-    display: none !important;
-}*/
-
-/*.edit-archive-container p,
-.edit-archive-container h3,
-.edit-archive-container .boolean-icon,
-.edit-archive-container .video-overlay.video-play  {
-    display: none;
-}*/
-
 .edit-archive-container.preview p,
 .edit-archive-container.preview h3{
     display: block;
@@ -1772,6 +1744,78 @@ input+label {
     text-transform: uppercase;
 }
 
+.edit-archive-container .credits-editor .credit-detail-item {
+    display: flex;
+}
+
+.edit-archive-container .credits-editor .credit-detail-item {
+    display: flex;
+}
+
+.edit-archive-container .credits-editor .credit-detail-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-archive-container .credits-editor .credit-detail-item button{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 0;
+    background: #000;
+    z-index: 100;
+}
+
+.edit-archive-container .credits-editor .credit-detail-item > div{
+    width: calc(50% - 5px)
+}
+
+.credits,
+.credits ul,
+.credits-editor,
+.credits-editor ul  {
+    list-style: none;
+}
+
+.credits ul,
+.credits-editor ul {
+    padding-left: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.3);
+}
+
+.credits-editor > ul li > div{
+    padding-bottom: 10px;
+}
+
+
+.credits h3,
+.credits h4{
+    color: rgba(0, 0 0, 0.87);
+    font-family: "ProximaNova-Bold", Arial, sans-serif;
+}
+
+.credits h3{
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    text-transform: uppercase;
+}
+
+.credits h4 {
+    font-size: 16px;
+}
+
+.credits p {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.87);
+}
+
 .edit-archive-container .nested_fields {
     margin-bottom: 0;
 }
@@ -1813,6 +1857,20 @@ input+label {
 
 .edit-archive-container .nested-fields .field {
     display: flex;
+}
+
+.edit-archive-form {
+
+}
+
+.edit-archive-form textarea{
+    resize: none;
+    min-height: 200px;
+    border: 1px solid #000000;
+}
+
+.edit-archive-form input[type="text"]{
+    border: 1px solid #000000;
 }
 
 .credit-container .credit-heading-field {
@@ -1953,6 +2011,13 @@ input[type="text"], input[type="password"], #main textarea {
     margin-bottom: 0;
     opacity: 0.8;
     line-height: 1.7;
+}
+
+.field label {
+    display: block;
+    padding: 5px 0px;
+    font-family: "ProximaNova-Bold", Arial, sans-serif;
+    font-size: 16px;
 }
 
 .fixed {
