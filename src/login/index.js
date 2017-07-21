@@ -6,11 +6,13 @@ import {Link} from 'react-router-dom'
 import Messages from '../notifications/Messages'
 import Errors from '../notifications/Errors'
 
+import {checkAuthorization} from '../lib/check-auth'
+
 import loginRequest from './actions'
 
 
 class Login extends Component {
-    
+
     static propTypes = {
         handleSubmit: PropTypes.func,
         loginRequest: PropTypes.func,
@@ -25,9 +27,10 @@ class Login extends Component {
     }
 
     // Remember, Redux Form passes the form values to our handler
-    // In this case it will be an object with `email` and `password`
+    // In this case it will be an object with `username` and `password`
     submit = (values) => {
-        this.props.loginRequest(values)
+        const { loginRequest } = this.props
+        loginRequest(values)
     }
 
     render() {
@@ -46,25 +49,27 @@ class Login extends Component {
                 <form className="login-form" onSubmit={handleSubmit(this.submit)}>
                     <i className="mill-logo mill-icons_mill"></i>
                     <h2>A place to find work within The Mill</h2>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="username">Email</label>
                     <Field
-                        name="email"
+                        name="username"
                         type="text"
-                        id="email"
+                        id="username"
                         className="email"
                         component="input"/>
                       <label htmlFor="password">Password</label>
                       <Field name="password" type="password" id="password" className="password" component="input"/>
-                      <button className="login-button" action="submit">LOGIN</button>
+                      <div className="login-button">
+                          <button className="default-btn black-btn" action="submit">LOGIN</button>
+                      </div>
                 </form>
                 <div className="auth-messages">
                     {/* As in the signup, we're just using the message and error helpers */}
                     {!requesting && !!errors.length && (<Errors message="Failure to login due to:" errors={errors}/>)}
                     {!requesting && !!messages.length && (<Messages messages={messages}/>)}
                     {requesting && <div>Logging in...</div>}
-                    {!requesting && !successful && (
+                    {/* {!requesting && !successful && (
                         <Link to="/signup">Need to Signup? Click Here »</Link>
-                    )}
+                    )} */}
                 </div>
             </div>
         )

@@ -10,6 +10,6 @@ export const setClient = (token) => {
 
 export const unsetClient = () => {
   return {
-    type: CLIENT_UNSET,
+    type: CLIENT_UNSET
   }
 }

@@ -66,8 +66,8 @@ class CategoryForm extends React.Component {
     }
 
     onSortEnd = ({oldIndex, newIndex, }) => {
-        const { formValues, change } = this.props
-        const newArray = arrayMove(formValues, oldIndex, newIndex)
+        const { realValues, change } = this.props
+        const newArray = arrayMove(realValues, oldIndex, newIndex)
         change('categories', newArray)
     }
 
@@ -86,7 +86,7 @@ class CategoryForm extends React.Component {
 
     render() {
 
-        const {categories, tempCategories, initialValues, handleSubmit, change, formValues} = this.props
+        const {categories, tempCategories, initialValues, handleSubmit, change, realValues} = this.props
 
         return <form className="edit-category-form" onSubmit={handleSubmit(this.handleCategorySubmit)}>
             <div className="category-actions">
@@ -104,10 +104,11 @@ class CategoryForm extends React.Component {
             </div>
             <FieldArray
                 name="categories"
-                realValues={formValues}
+                realValues={realValues}
                 initialValues={initialValues.categories}
                 helperClass={'SortableHelper'}
                 onSortEnd={this.onSortEnd}
+                distance={10}
                 change={change}
                 component={RenderCategoryList}
                 type="text"/>
@@ -124,7 +125,7 @@ CategoryForm = reduxForm({form: 'categoryUpdateForm', enableReinitialize: true})
 
 const mapStateToProps = state => ({
     categories: state.categories.list,
-    formValues: formValueSelector('categoryUpdateForm')(state, 'categories'),
+    realValues: formValueSelector('categoryUpdateForm')(state, 'categories'),
     initialValues: {
         categories: state.categories.list
     }

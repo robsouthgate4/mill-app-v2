@@ -3,10 +3,10 @@ import {
 } from './constants'
 
 // In order to perform an action of type LOGIN_REQUESTING
-// we need an email and password
-const loginRequest = ({ email, password }) => ({
+// we need an username and password
+const loginRequest = ({ username, password }) => ({
     type: LOGIN_REQUESTING,
-    email,
+    username,
     password
 })
 

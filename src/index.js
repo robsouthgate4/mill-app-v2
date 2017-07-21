@@ -3,17 +3,8 @@ import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Header } from './components'
+import { App } from './App'
 
-import {
-  checkAuthorization
-} from './lib/check-auth'
-
-// Import all of our components
-import Login from './login'
-import Archives from './archives'
-import Categories from './categories'
 
 import 'react-widgets/dist/css/react-widgets.css'
 import './App.css'
@@ -38,22 +29,9 @@ const store = createStore(
 
 sagaMiddleware.run(IndexSagas)
 
-console.log(checkAuthorization())
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-        <div className='app'>
-            <Header />
-            <div className="App-body">
-                <Switch>
-                    <Route exact path="/login" component={Login} />
-                    <Route path="/archives" component={Archives} />
-                    <Route path="/categories" component={Categories} />
-                </Switch>
-            </div>
-        </div>
-    </Router>
+    <App />
   </Provider>,
   document.getElementById('root'),
 )
