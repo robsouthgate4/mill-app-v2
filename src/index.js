@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Header } from './components'
 
 import {
-  checkIndexAuthorization
+  checkAuthorization
 } from './lib/check-auth'
 
 // Import all of our components
@@ -37,6 +37,8 @@ const store = createStore(
 )
 
 sagaMiddleware.run(IndexSagas)
+
+console.log(checkAuthorization())
 
 ReactDOM.render(
   <Provider store={store}>

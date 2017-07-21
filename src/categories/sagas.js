@@ -1,45 +1,25 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { handleApiErrors } from '../lib/api-errors'
 
 import {
   CATEGORY_CREATING,
   CATEGORY_REQUESTING,
+  CATEGORY_UPDATE_REQUESTING
 } from './constants'
+
+import {
+    categoryRequestApi,
+    categoryCreateApi,
+    categoryUpdateApi
+} from '../api/categoryApi'
 
 import {
   categoryCreateSuccess,
   categoryCreateError,
   categoryRequestSuccess,
   categoryRequestError,
+  categoryUpdateSuccess,
+  categoryUpdateError
 } from './actions'
-
-const categoriesUrl = `${process.env.REACT_APP_API_URL}/api/categories`
-
-// Nice little helper to deal with the response
-// converting it to json, and handling errors
-function handleRequest (request) {
-  return request
-    .then(handleApiErrors)
-    .then(response => response.json())
-    .then(json => json)
-    .catch((error) => { throw error })
-}
-
-function categoryCreateApi (client, category) {
-  const url = `${categoriesUrl}/${client.id}/categories`
-  const request = fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      // passes our token as an "Authorization" header in
-      // every POST request.
-      Authorization: client.token.id || undefined, // will throw an error if no login
-    },
-    body: JSON.stringify(category),
-  })
-
-  return handleRequest(request)
-}
 
 function* categoryCreateFlow (action) {
   try {
@@ -51,20 +31,6 @@ function* categoryCreateFlow (action) {
     // same with error
     yield put(categoryCreateError(error))
   }
-}
-
-function categoryRequestApi (client) {
-  const url = `${categoriesUrl}/${client.id}/categories`
-  const request = fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // passe our token as an "Authorization" header
-      Authorization: client.token.id || undefined,
-    },
-  })
-
-  return handleRequest(request)
 }
 
 function* categoryRequestFlow (action) {
@@ -80,11 +46,26 @@ function* categoryRequestFlow (action) {
   }
 }
 
+function* categoryUpdateFlow (action) {
+  try {
+    // grab the client from our action
+    const { client, categories } = action
+    console.log(categories)
+    // call to our categoryRequestApi function with the client
+    const updatedCategories = yield call(categoryUpdateApi, categories)
+    // dispatch the action with our categories!
+    yield put(categoryUpdateSuccess(updatedCategories))
+  } catch (error) {
+    yield put(categoryUpdateError(error))
+  }
+}
+
 function* categoriesWatcher () {
   // each of the below RECEIVES the action from the .. action
   yield [
     takeLatest(CATEGORY_CREATING, categoryCreateFlow),
     takeLatest(CATEGORY_REQUESTING, categoryRequestFlow),
+    takeLatest(CATEGORY_UPDATE_REQUESTING, categoryUpdateFlow)
   ]
 }
 

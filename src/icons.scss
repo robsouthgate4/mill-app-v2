@@ -1,0 +1,249 @@
+@font-face {
+    font-family: 'mill-icon-font';
+    src:    url('./assets/fonts/mill-icon-font.eot?icqh9b');
+    src:    url('./assets/fonts/mill-icon-font.eot?icqh9b#iefix') format('embedded-opentype'),
+        url('./assets/fonts/mill-icon-font.ttf?icqh9b') format('truetype'),
+        url('./assets/fonts/mill-icon-font.woff?icqh9b') format('woff'),
+        url('./assets/fonts/mill-icon-font.svg?icqh9b#mill-icon-font') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="mill-"], [class*=" mill-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'mill-icon-font' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.mill-icons_action:before {
+  content: "\e900";
+}
+.mill-icons_address:before {
+  content: "\e901";
+}
+.mill-icons_alphabetical:before {
+  content: "\e902";
+}
+.mill-icons_arrow-down-filled:before {
+  content: "\e903";
+}
+.mill-icons_arrow-down-line:before {
+  content: "\e904";
+}
+.mill-icons_arrow-left-filled:before {
+  content: "\e905";
+}
+.mill-icons_arrow-left-line:before {
+  content: "\e906";
+}
+.mill-icons_arrow-right-filled:before {
+  content: "\e907";
+}
+.mill-icons_arrow-right-line:before {
+  content: "\e908";
+}
+.mill-icons_arrow-up-filled:before {
+  content: "\e909";
+}
+.mill-icons_arrow-up-line:before {
+  content: "\e90a";
+}
+.mill-icons_back-to-top:before {
+  content: "\e90b";
+}
+.mill-icons_beam:before {
+  content: "\e90c";
+}
+.mill-icons_bold:before {
+  content: "\e90d";
+}
+.mill-icons_bullet-list:before {
+  content: "\e90e";
+}
+.mill-icons_calendar:before {
+  content: "\e90f";
+}
+.mill-icons_camera:before{
+    content:"\0041";
+}
+.mill-icons_circle-close:before {
+  content: "\e910";
+}
+.mill-icons_clock:before {
+  content: "\e911";
+}
+.mill-icons_close-job:before {
+  content: "\e912";
+}
+.mill-icons_close:before {
+  content: "\e913";
+}
+.mill-icons_cv:before {
+  content: "\e914";
+}
+.mill-icons_delete:before {
+  content: "\e915";
+}
+.mill-icons_dollar:before {
+  content: "\e916";
+}
+.mill-icons_download:before {
+  content: "\e917";
+}
+.mill-icons_duplicate:before {
+  content: "\e918";
+}
+.mill-icons_edit:before {
+  content: "\e919";
+}
+.mill-icons_email:before {
+  content: "\e91a";
+}
+.mill-icons_facebook-square:before {
+  content: "\e91b";
+}
+.mill-icons_facebook:before {
+  content: "\e91c";
+}
+.mill-icons_favourite:before {
+  content: "\e91d";
+}
+.mill-icons_Filter-Two:before {
+  content: "\e91e";
+}
+.mill-icons_Filter:before {
+  content: "\e91f";
+}
+.mill-icons_folder:before {
+  content: "\e920";
+}
+.mill-icons_hide:before {
+  content: "\e921";
+}
+.mill-icons_hold:before {
+  content: "\e922";
+}
+.mill-icons_info-circle:before {
+  content: "\e923";
+}
+.mill-icons_info:before {
+  content: "\e924";
+}
+.mill-icons_instagram:before {
+  content: "\e925";
+}
+.mill-icons_italic:before {
+  content: "\e926";
+}
+.mill-icons_job-offer:before {
+  content: "\e927";
+}
+.mill-icons_Key:before {
+  content: "\e928";
+}
+.mill-icons_linkedin:before {
+  content: "\e929";
+}
+.mill-icons_location:before {
+  content: "\e92a";
+}
+.mill-icons_lock:before {
+  content: "\e92b";
+}
+.mill-icons_menu-website:before {
+  content: "\e92c";
+}
+.mill-icons_menu:before {
+  content: "\e92d";
+}
+.mill-icons_message:before {
+  content: "\e92e";
+}
+.mill-icons_mill:before {
+  content: "\e92f";
+}
+.mill-icons_more:before {
+  content: "\e930";
+}
+.mill-icons_multiple-profiles:before {
+  content: "\e931";
+}
+.mill-icons_multiply:before {
+  content: "\e932";
+}
+.mill-icons_off-hold:before {
+  content: "\e933";
+}
+.mill-icons_phone:before {
+  content: "\e934";
+}
+.mill-icons_play:before {
+  content: "\e935";
+}
+.mill-icons_plus:before {
+  content: "\e936";
+}
+.mill-icons_portfolio:before {
+  content: "\e937";
+}
+.mill-icons_pound:before {
+  content: "\e938";
+}
+.mill-icons_previous-uploads:before {
+  content: "\e939";
+}
+.mill-icons_profile:before {
+  content: "\e93a";
+}
+.mill-icons_publish:before {
+  content: "\e93b";
+}
+.mill-icons_reopen-job:before {
+  content: "\e93c";
+}
+.mill-icons_search:before {
+  content: "\e93d";
+}
+.mill-icons_share-07:before {
+  content: "\e93e";
+}
+.mill-icons_share-17:before {
+  content: "\e93f";
+}
+.mill-icons_show:before {
+  content: "\e940";
+}
+.mill-icons_submit:before {
+  content: "\e941";
+}
+.mill-icons_tick:before {
+  content: "\e942";
+}
+.mill-icons_twitter:before {
+  content: "\e943";
+}
+.mill-icons_unpublish:before {
+  content: "\e944";
+}
+.mill-icons_upload-computer:before {
+  content: "\e945";
+}
+.mill-icons_upload:before {
+  content: "\e946";
+}
+.mill-icons_vimeo:before {
+  content: "\e947";
+}
+.mill-icons_PDF:before {
+  content: "\e948";
+}

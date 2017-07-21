@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {reduxForm, Field, FieldArray} from 'redux-form'
+import {reduxForm, Field, FieldArray, change, formValueSelector} from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RenderMultiselect } from './'
@@ -60,13 +60,35 @@ const renderCreditDetails = ({ fields, meta: { error } }) => (
   </ul>
 )
 
+const RenderCheckbox = ({ input, label, type, meta: { touched, error } }) => (
+    <div>
+        <input {...input} className="toggleSwitch-checkbox" type={type}/>
+        <label className="toggleSwitch-label" htmlFor="enabled">
+            <span className="toggleSwitch-inner"></span>
+            <span className="toggleSwitch-switch"></span>
+        </label>
+    </div>
+)
+
 class ArchiveForm extends React.Component {
 
     updateSubmit = (values) => {
         console.log(values)
     }
+
     render() {
-        const {handleSubmit, archiveById, match, options, pristine, reset, submitting, initialValues} = this.props;
+        const {
+                handleSubmit,
+                archiveById,
+                match,
+                options,
+                pristine,
+                reset,
+                formValues,
+                change,
+                submitting,
+                initialValues} = this.props;
+
         return (
             <form className="edit-archive-form" onSubmit={handleSubmit(this.updateSubmit)}>
                 <div className="content">
@@ -115,16 +137,12 @@ class ArchiveForm extends React.Component {
 
                     <div className="ipad-push-container">
                         <h3 className="section-title">Available on iPad</h3>
-                        <div className="toggleSwitch push-ipad">
+                        <div className="toggleSwitch push-ipad" onClick={ (evt) => change(`archive.enabled`, !formValues.enabled)}>
                             <Field
-                                component="input"
+                                component={RenderCheckbox}
                                 className="syncVideo ipad-push-checkbox toggleSwitch-checkbox"
                                 name="archive.enabled"
                                 type="checkbox"/>
-                            <label className="toggleSwitch-label push" htmlFor="enabled">
-                                <span className="toggleSwitch-inner"></span>
-                                <span className="toggleSwitch-switch"></span>
-                            </label>
                         </div>
                     </div>
 
@@ -139,7 +157,7 @@ class ArchiveForm extends React.Component {
                     </div>
 
                     <div className="credits-editor">
-                        <FieldArray name="archive.credits" component={renderCredits} type="text" />
+                        <FieldArray change={change} name="archive.credits" component={renderCredits} type="text" />
                     </div>
 
                 </div>
@@ -148,7 +166,13 @@ class ArchiveForm extends React.Component {
     }
 }
 
-ArchiveForm.propTypes = {};
+ArchiveForm.propTypes = {
+    initialValues: PropTypes.shape(
+        {
+            archive: PropTypes.object.isRequired
+        }
+    )
+};
 
 ArchiveForm = reduxForm({
     form: 'archiveUpdateForm',
@@ -156,11 +180,16 @@ ArchiveForm = reduxForm({
 })(ArchiveForm)
 
 ArchiveForm = connect(
-  state => ({
-    initialValues: {
-        archive: state.archives.archiveById
+   state => ({
+        categories: state.categories.list,
+        formValues: formValueSelector('archiveUpdateForm')(state, 'archive'),
+        initialValues: {
+            archive: state.archives.archiveById
+        }
+    }),
+    {
+        change
     }
-  })
 )(ArchiveForm)
 
 export default ArchiveForm

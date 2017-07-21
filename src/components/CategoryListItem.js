@@ -4,10 +4,10 @@ export const CategoryListItem = (props) => {
     const { category } = props
     return <div className="flex-table-row">
                 <div className="flex-table-cell">
-                    <div className={`boolean-icon enabled_${category.synced}`}></div>
+                    <div className={`boolean-icon enabled_${category.enabled}`}></div>
                 </div>
                 <div className="flex-table-cell category-cell">{category.name}</div>
-                <div className="flex-table-cell">{category.videosSynced}</div>
+                <div className="flex-table-cell">{category.videos_synced}</div>
             </div>
 }
 

@@ -97,14 +97,12 @@ Archives.propTypes = {
     archiveCreate: React.PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-    return {
-        client: state.client,
-        archives: state.archives,
-        archiveById: state.archives.archiveById,
-        page: state.archives.page
-    }
-}
+const mapStateToProps = (state) => ({
+    client: state.client,
+    archives: state.archives,
+    archiveById: state.archives.archiveById,
+    page: state.archives.page
+})
 
 
 const connected = connect(

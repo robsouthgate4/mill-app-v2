@@ -5,47 +5,79 @@ import {
   CATEGORY_REQUESTING,
   CATEGORY_REQUEST_SUCCESS,
   CATEGORY_REQUEST_ERROR,
+  CATEGORY_UPDATE_ORDER,
+  CATEGORY_UPDATE_REQUESTING,
+  CATEGORY_UPDATE_SUCCESS,
+  CATEGORY_UPDATE_ERROR
 } from './constants'
 
-export const categoryCreate = function categoryCreate (client, category) {
+export const categoryCreate = (client, category) => {
   return {
     type: CATEGORY_CREATING,
     client,
-    category,
+    category
   }
 }
 
-export const categoryCreateSuccess = function categoryCreateSuccess (category) {
+export const categoryCreateSuccess = category => {
   return {
     type: CATEGORY_CREATE_SUCCESS,
-    category,
+    category
   }
 }
 
-export const categoryCreateError = function categoryCreateError (error) {
+export const categoryCreateError = error => {
   return {
     type: CATEGORY_CREATE_ERROR,
-    error,
+    error
   }
 }
 
-export const categoryRequest = function categoryRequest (client) {
+export const categoryRequest = client => {
   return {
     type: CATEGORY_REQUESTING,
-    client,
+    client
   }
 }
 
-export const categoryRequestSuccess = function categoryRequestSuccess (categorys) {
+export const categoryRequestSuccess = categories => {
   return {
     type: CATEGORY_REQUEST_SUCCESS,
-    categorys,
+    categories
   }
 }
 
-export const categoryRequestError = function categoryRequestError (error) {
+export const categoryUpdateRequest = categories => {
+    return {
+      type: CATEGORY_UPDATE_REQUESTING,
+      categories
+    }
+}
+
+export const categoryUpdateSuccess = categories => {
+    return {
+      type: CATEGORY_UPDATE_SUCCESS,
+      categories
+    }
+}
+
+export const categoryUpdateError = error => {
+    return {
+      type: CATEGORY_UPDATE_ERROR,
+      error
+    }
+}
+
+export const categoryUpdateOrder = categories => {
+    return {
+      type: CATEGORY_UPDATE_ORDER,
+      categories
+    }
+}
+
+export const categoryRequestError = error => {
   return {
     type: CATEGORY_REQUEST_ERROR,
-    error,
+    error
   }
 }

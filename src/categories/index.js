@@ -20,7 +20,8 @@ class Category extends Component {
     }
 
     fetchCategories = () => {
-
+        const {client,  categoryRequest } = this.props
+        categoryRequest(client)
     }
 
     submit = (category) => {
@@ -32,33 +33,12 @@ class Category extends Component {
     }
 
     render() {
-        const fakeCategories = [
-            {
-                'name': 'category',
-                'synced': true,
-                'videosSynced': 100,
-            },
-            {
-                'name': 'category',
-                'synced': true,
-                'videosSynced': 100,
-            },
-            {
-                'name': 'category',
-                'synced': true,
-                'videosSynced': 100,
-            },
-            {
-                'name': 'category',
-                'synced': true,
-                'videosSynced': 100,
-            }
-        ]
+        const { categories } = this.props
         return (
             <div className="categories">
                 <Switch>
-                    <Route exact path="/categories" render={(props) => <CategoryList categories={fakeCategories} />} />
-                    <Route path="/categories/edit" render={(match) => <CategoryListEdit categories={fakeCategories} />} />
+                    <Route exact path="/categories" render={(props) => <CategoryList categories={categories} />} />
+                    <Route path="/categories/edit" render={(match) => <CategoryListEdit categories={categories} />} />
                 </Switch>
             </div>
         )
@@ -66,9 +46,15 @@ class Category extends Component {
 }
 
 const mapStateToProps = state => ({
-
+    categories: state.categories.list,
+    client: state.client
 })
 
-const connected = connect(mapStateToProps)(Category)
+const connected = connect(
+    mapStateToProps,
+    {
+        categoryRequest
+    }
+)(Category)
 
 export default connected
