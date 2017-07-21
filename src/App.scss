@@ -189,6 +189,13 @@ a {
     }
 }
 
+input[type="text"].empty {
+    border: 0;
+    padding: 0;
+    pointer-events: none;
+    text-align: center;
+}
+
 .toggleSwitch {
     position: relative;
     width: 70px;
@@ -216,7 +223,7 @@ a {
     display: block;
     width: 200%;
     margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
+    //transition: margin 0.3s ease-in 0s;
 
     &:after,
     &:before {
@@ -269,13 +276,15 @@ a {
     right: 33px;
     border: 1px solid #CDCDCD;
     border-radius: 20px;
-    transition: all 0.2s ease-in 0s;
+    transition: margin 0.2s ease-in 0s;
     font-family: 'ProximaNova-Regular', Arial, sans-serif;
     color: #fff;
     font-size: 11px;
-
     &::before {
         content: 'Off';
+    }
+    &.dragging {
+        transition: none !important;
     }
 }
 
@@ -1003,11 +1012,11 @@ body.login {
 .login-container {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     flex: 1 100%;
     flex-flow: column wrap;
     width: 280px;
-
+    margin: 0 auto;
     h2 {
         max-width: 187px;
         line-height: 1.8;
@@ -1016,19 +1025,38 @@ body.login {
         font-size: 14px;
         color: #000;
         text-align: center;
-        align-self: center;
+        margin: 0 auto;
     }
 
     form {
         width: 100%;
-
-        div {
+        text-align: center;
+            h2 {
+                text-align: center;
+            }
             input {
                 padding-top: 15px;
                 padding-bottom: 15px;
                 margin-top: 7px;
                 width: 100%;
                 height: auto !important;
+                &.email {
+                    margin-bottom: 15px;
+
+                    label::before {
+                        content: '\e93a';
+                    }
+                }
+
+                &.password label::before {
+                    content: '\e92b';
+                }
+
+                .login-button {
+                    padding-top: 17px;
+                    padding-bottom: 17px;
+                    font-size: 11px;
+                }
             }
 
             label {
@@ -1052,25 +1080,6 @@ body.login {
                     -moz-osx-font-smoothing: grayscale;
                 }
             }
-
-            &.email {
-                margin-bottom: 15px;
-
-                label::before {
-                    content: '\e93a';
-                }
-            }
-
-            &.password label::before {
-                content: '\e92b';
-            }
-
-            &.login-button input {
-                padding-top: 17px;
-                padding-bottom: 17px;
-                font-size: 11px;
-            }
-        }
     }
 
     i {

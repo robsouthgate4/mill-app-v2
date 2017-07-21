@@ -1,18 +1,23 @@
 import {handleRequest} from '../lib/handleRequest'
-import { handleApiErrors } from '../lib/api-errors'
+import {handleApiErrors} from '../lib/api-errors'
 
-const loginUrl = `${process.env.REACT_APP_API_URL}/api/Clients/login`
+const loginUrl = `${process.env.REACT_APP_API_URL}/api/login`
 
-export const loginApi = (email, password) => {
-  return fetch(loginUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then(handleApiErrors)
-    .then(response => response.json())
-    .then(json => json)
-    .catch((error) => { throw error })
+export const loginApi = (username, password) => {
+
+    let formData = new FormData()
+    formData.append("username", username)
+    formData.append("password", password)
+
+    console.log(username, password)
+
+    return fetch(loginUrl, {
+        method: 'POST',
+        body: formData
+    }).then(handleApiErrors)
+        .then(response => response.json())
+        .then(json => json)
+        .catch((error) => {
+            throw error
+        })
 }
