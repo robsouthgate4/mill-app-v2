@@ -1,19 +1,21 @@
 import {
-    CATEGORY_CREATING,
-    CATEGORY_CREATE_SUCCESS,
-    CATEGORY_CREATE_ERROR,
-    CATEGORY_REQUESTING,
-    CATEGORY_REQUEST_SUCCESS,
-    CATEGORY_REQUEST_ERROR,
-    CATEGORY_UPDATE_ORDER,
-    CATEGORY_UPDATE_REQUESTING,
-    CATEGORY_UPDATE_SUCCESS,
-    CATEGORY_UPDATE_ERROR
+    ARCHIVE_CREATING,
+    ARCHIVE_CREATE_SUCCESS,
+    ARCHIVE_CREATE_ERROR,
+    ARCHIVE_REQUESTING,
+    ARCHIVE_REQUEST_SUCCESS,
+    ARCHIVE_REQUEST_ERROR,
+    ARCHIVE_REQUESTING_BY_ID,
+    ARCHIVE_REQUEST_BY_ID_SUCCESS,
 } from './constants'
 
 const initialState = {
     list: [],
-    tempCategories: [],
+    archiveById: null,
+    orderBy: 'title',
+    orderDir: 'asc',
+    page: 1,
+    limit: 25,
     requesting: false,
     successful: false,
     messages: [],
@@ -22,36 +24,37 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case CATEGORY_CREATING:
+        case ARCHIVE_CREATING:
             return {
                 ...state,
                 requesting: true,
                 successful: false,
                 messages: [
                     {
-                        body: `Archive: ${action.category.name} being created...`,
+                        body: `Archive: ${action.archive.name} being created...`,
                         time: new Date()
                     }
                 ],
                 errors: []
             }
 
-            // On success include the new category into our list
-        case CATEGORY_CREATE_SUCCESS:
+            // On success include the new archive into our list
+        case ARCHIVE_CREATE_SUCCESS:
             return {
-                list: state.list.concat([action.category]),
+                ...state,
+                list: state.list.concat([action.archive]),
                 requesting: false,
                 successful: true,
                 messages: [
                     {
-                        body: `Widget: ${action.category.name} awesomely created!`,
+                        body: `Archive: ${action.archive.name} created!`,
                         time: new Date()
                     }
                 ],
                 errors: []
             }
 
-        case CATEGORY_CREATE_ERROR:
+        case ARCHIVE_CREATE_ERROR:
             return {
                 ...state,
                 requesting: false,
@@ -65,37 +68,37 @@ const reducer = (state = initialState, action) => {
                 ])
             }
 
-        case CATEGORY_REQUESTING:
-            return {
-                ...state, // ensure that we don't erase fetched ones
-                requesting: false,
-                successful: true,
-                messages: [
-                    {
-                        body: 'Fetching categories...!',
-                        time: new Date()
-                    }
-                ],
-                errors: []
-            }
-
-        case CATEGORY_REQUEST_SUCCESS:
+        case ARCHIVE_REQUESTING:
             return {
                 ...state,
-                list: action.categories, // replace with fresh list
-                tempCategories: action.categories, // Always store as referece to previous order
-                requesting: false,
-                successful: true,
+                requesting: true,
+                successful: false,
+                page: action.page,
                 messages: [
                     {
-                        body: 'Categories fetched!',
+                        body: 'Fetching archives...!',
                         time: new Date()
                     }
                 ],
                 errors: []
             }
 
-        case CATEGORY_REQUEST_ERROR:
+        case ARCHIVE_REQUEST_SUCCESS:
+            return {
+                ...state,
+                list: action.archives, // replace with fresh list
+                requesting: false,
+                successful: true,
+                messages: [
+                    {
+                        body: 'Archives fetched!',
+                        time: new Date()
+                    }
+                ],
+                errors: []
+            }
+
+        case ARCHIVE_REQUEST_ERROR:
             return {
                 ...state,
                 requesting: false,
@@ -109,62 +112,38 @@ const reducer = (state = initialState, action) => {
                 ]
             }
 
-        case CATEGORY_UPDATE_REQUESTING:
+        case ARCHIVE_REQUESTING_BY_ID:
             return {
                 ...state,
                 requesting: true,
                 successful: false,
                 messages: [
                     {
-                        body: 'Updating categories...',
+                        body: 'Fetching single archive',
                         time: new Date()
                     }
                 ],
                 errors: []
             }
 
-        case CATEGORY_UPDATE_SUCCESS:
+        case ARCHIVE_REQUEST_BY_ID_SUCCESS:
             return {
                 ...state,
+                archiveById: action.archive,
                 requesting: false,
                 successful: true,
                 messages: [
                     {
-                        body: 'Updated categories successfully',
+                        body: 'Archive fetched!',
                         time: new Date()
                     }
                 ],
-                errors: []
-            }
-
-        case CATEGORY_UPDATE_ERROR:
-            return {
-                ...state,
-                requesting: false,
-                successful: false,
-                messages: [],
-                errors: state.errors.concat[
-                    {
-                        body : action.error.toString(),
-                        time : new Date()
-                    }
-                ]
-            }
-
-        case CATEGORY_UPDATE_ORDER:
-            return {
-                ...state,
-                requesting: false,
-                successful: false,
-                messages: [],
-                tempCategories: action.categories,
                 errors: []
             }
 
         default:
             return state
     }
-
 }
 
 export default reducer

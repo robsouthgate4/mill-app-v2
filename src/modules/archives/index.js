@@ -1,35 +1,36 @@
-import React, {Component, PropTypes} from 'react'
-import {reduxForm, Field} from 'redux-form'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { Router, Route, Switch } from 'react-router-dom'
-
-import Messages from '../notifications/Messages'
-import Errors from '../notifications/Errors'
-
-import {ArchiveList} from '../components/ArchiveList'
-import {ArchiveDetail} from '../components/ArchiveDetail'
-import {ArchiveDetailEdit} from '../components'
-
-import {archiveCreate, archiveRequest, archiveRequestById, archiveUpdate} from './actions'
+import { Route, Switch } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import {ArchiveList} from '../../components/ArchiveList'
+import {ArchiveDetail} from '../../components/ArchiveDetail'
+import {ArchiveDetailEdit} from '../../components'
+import Header from '../../components/Header'
 
+import {
+        archiveCreate,
+        archiveRequest,
+        archiveRequestById,
+        archiveUpdate} from './actions'
+
+import { categoryRequest } from '../categories/actions'
 
 class Archives extends Component {
 
     constructor(props) {
         super(props)
-        this.fetchArchives()
     }
 
     componentDidMount() {
-        console.log('hello');
+        this.fetchArchives()
     }
 
     fetchArchives = (id) => {
-        const {client, archiveRequest, page} = this.props
-        //if (client && client.token)
-        archiveRequest(client, id, 1)
+        const {client, archiveRequest, page, limit, archives} = this.props
+        if (client.token && archives.list.length === 0)
+        archiveRequest(client, id, page, limit)
     }
+
 
     updateArchive = (archive) => {
         const { client, archiveUpdate, reset, archiveById } = this.props
@@ -41,8 +42,8 @@ class Archives extends Component {
 
     fetchById = (id) => {
         const {client, archiveRequestById} = this.props
-        //if (client && client.token)
-        this.props.archiveRequestById(client, id)
+        if (client && client.token)
+        archiveRequestById(client, id)
     }
 
     render() {
@@ -51,6 +52,7 @@ class Archives extends Component {
             invalid,
             archiveId,
             initialValues,
+            client,
             archives: {
                 archiveById,
                 list,
@@ -64,26 +66,37 @@ class Archives extends Component {
 
         return (
             <div className="archives">
-                current page: {page}
                 <Switch>
-                    <Route exact path="/archives" render={(props) => <ArchiveList archives={list}></ArchiveList>} />
+
+                    <Route exact path="/archives" render={(props) =>
+                        <ArchiveList
+                            client={client}
+                            requesting={requesting}
+                            archives={list}>
+                        </ArchiveList>}
+                    />
+
                     <Route exact path="/archives/:id" render={(match) =>{
                             return <ArchiveDetail
                                     {...match}
+                                    client={client}
                                     archiveById={archiveById}
                                     fetchById={this.fetchById}>
                                 </ArchiveDetail>
                         }}
                     />
+
                     <Route path="/archives/:id/edit" render={(match) =>{
                             return <ArchiveDetailEdit
                                 {...match}
+                                client={client}
                                 initialValues={initialValues}
                                 fetchById={this.fetchById}
                                 archiveById={archiveById}>
                             </ArchiveDetailEdit>
                         }}
                      />
+
                 </Switch>
             </div>
         )
@@ -101,18 +114,18 @@ const mapStateToProps = (state) => ({
     client: state.client,
     archives: state.archives,
     archiveById: state.archives.archiveById,
-    page: state.archives.page
+    page: state.archives.page,
+    limit: state.archives.limit
 })
 
-
-const connected = connect(
+const connected = withRouter(connect(
     mapStateToProps,
     {
         archiveRequestById,
         archiveCreate,
         archiveRequest,
-        archiveUpdate
+        archiveUpdate,
     }
-)(Archives)
+)(Archives))
 
 export default connected

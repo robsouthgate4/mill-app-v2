@@ -4,7 +4,10 @@ import {
     archiveCreateApi,
     archiveRequestApi,
     archiveUpdateApi,
-    archiveRequestById  } from '../api/archiveApi'
+    archiveRequestById  } from '../../api/archiveApi'
+
+import {
+    categoryRequestApi } from '../../api/categoryApi'
 
 import {
   ARCHIVE_CREATING,
@@ -37,10 +40,11 @@ function* archiveCreateFlow (action) {
 
 function* archiveRequestFlow (action) {
   try {
-    const { client, page, id = null } = action
-    const archives = yield call(archiveRequestApi, client, id, page)
+    const { client, page, id = null, limit } = action
 
-    yield put(archiveRequestSuccess(archives))
+    const archives = yield call(archiveRequestApi, client, id, page, limit)
+
+    yield put(archiveRequestSuccess(archives.items))
 
   } catch (error) {
     yield put(archiveRequestError(error))
@@ -53,7 +57,11 @@ function* archiveRequestByIdFlow (action) {
     const { client, id, page = 1 } = action
     const archive = yield call(archiveRequestApi, client, id, page)
 
+    // We also need to get updated list of categories
+    const categories = yield call(categoryRequestApi, client)
+
     yield put(archiveRequestByIdSuccess(archive))
+    yield 
 
   } catch (error) {
     yield put(archiveRequestError(error))
@@ -64,8 +72,6 @@ function* archiveUpdateFlow (action) {
     try {
         const { client, id, archive } = action
         const responseArchive = yield call(archiveUpdateApi, client, id, archive)
-
-        console.log(responseArchive)
 
     } catch(error) {
         //yield put(archiveUpdateError(error))

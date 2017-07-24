@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import {ArchiveListItem} from './ArchiveListItem'
 
 export const ArchiveList = (props) => {
-    const { archives } = props
+    const { archives, requesting, client } = props
+    if (requesting) return <div>Loading archives...</div>
     return (
         <div className="flex-table archive-list">
             <div className="flex-table-header">
@@ -14,7 +15,11 @@ export const ArchiveList = (props) => {
 				<div className="flex-table-cell">Date added</div>
 			</div>
             {
-                archives.map((archive, i) => <ArchiveListItem key={archive.id} onArchiveLoad={props.handle} archive={archive} />)
+                archives.map((archive, i) => <ArchiveListItem
+                    key={archive.id}
+                    client={client}
+                    onArchiveLoad={props.handle}
+                    archive={archive} />)
             }
         </div>
     )

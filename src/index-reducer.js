@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import client from './client/reducer'
-import archives from './archives/reducer'
-import categories from './categories/reducer'
-import login from './login/reducer'
+import { routerReducer } from 'react-router-redux'
+import client from './modules/client/reducer'
+import archives from './modules/archives/reducer'
+import categories from './modules/categories/reducer'
+import login from './modules/login/reducer'
 
 const IndexReducer = combineReducers({
   client,

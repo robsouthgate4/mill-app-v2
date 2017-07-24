@@ -1,19 +1,19 @@
-import { setClient } from '../client/actions'
+import { setClient } from '../modules/client/actions'
 
-export const checkAuthorization = () => {
-  // attempt to grab the token from localstorage
-  const storedToken = localStorage.getItem('token')
+export const checkAuthorization = ({dispatch}) => {
 
-  if (storedToken) {
+    const storedToken = localStorage.getItem('token')
 
-    const token = JSON.parse(atob(storedToken.split('.')[1]))
+    if (storedToken) {
 
-    const created = token.iat
-    const expiry = token.exp
+        const token = JSON.parse(atob(storedToken.split('.')[1]))
+        const created = token.iat
+        const expiry = token.exp
 
-    return created < expiry
+        dispatch(setClient(JSON.parse(storedToken)))
 
-  }
+        return created < expiry
 
-  return false
+    }
+    return false
 }

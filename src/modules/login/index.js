@@ -1,15 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import history from '../../lib/history'
 
-import Messages from '../notifications/Messages'
-import Errors from '../notifications/Errors'
+import Messages from '../../notifications/Messages'
+import Errors from '../../notifications/Errors'
 
-import {checkAuthorization} from '../lib/check-auth'
+import {checkAuthorization} from '../../lib/check-auth'
 
-import loginRequest from './actions'
-
+import { loginRequest } from './actions'
 
 class Login extends Component {
 
@@ -19,11 +18,14 @@ class Login extends Component {
         login: PropTypes.shape(
             {
                 requesting: PropTypes.bool,
-                successful: PropTypes.bool,
                 messages: PropTypes.array,
                 errors: PropTypes.array
             }
         )
+    }
+
+    componentWillMount() {
+
     }
 
     // Remember, Redux Form passes the form values to our handler

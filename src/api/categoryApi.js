@@ -1,32 +1,20 @@
 import {handleRequest} from '../lib/handleRequest'
 import {handleApiErrors} from '../lib/api-errors'
 
-const categoriesUrl = `${process.env.REACT_APP_LOCAL_URL}`
+const categoriesUrl = `${process.env.REACT_APP_API_URL}`
 
 export const categoryCreateApi = (client, category) => {
     const url = `${categoriesUrl}`
     const request = fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // passes our token as an "Authorization" header in
-            // every POST request.
-            //Authorization: client.token.id || undefined, // will throw an error if no login
-        },
-        body: JSON.stringify(category)
+        method: 'POST'
     })
     return handleRequest(request)
 }
 
 export const categoryRequestApi = (client) => {
-    const url = `${categoriesUrl}/categories`
+    const url = `${categoriesUrl}/api/categories?token=${client.token}`
     const request = fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            // passe our token as an "Authorization" header
-            //Authorization: client.token.id || undefined,
-        }
+        method: 'GET'
     })
     return handleRequest(request)
 }
@@ -35,11 +23,6 @@ export const categoryUpdateApi = (categories) => {
     const url = `${categoriesUrl}/categories`
     const request = fetch(url, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            // passe our token as an "Authorization" header
-            //Authorization: client.token.id || undefined,
-        },
         body: JSON.stringify(categories)
     })
 

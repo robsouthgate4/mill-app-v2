@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { Router, Route, Switch } from 'react-router-dom'
+import { withRouter } from 'react-router'
+import Messages from '../../notifications/Messages'
+import Errors from '../../notifications/Errors'
 
-import Messages from '../notifications/Messages'
-import Errors from '../notifications/Errors'
-
-import { CategoryList } from '../components'
-import { CategoryListEdit } from '../components'
+import { CategoryList } from '../../components'
+import { CategoryListEdit } from '../../components'
 
 // include our categoryRequest action
 import {categoryCreate, categoryRequest} from './actions'
@@ -22,14 +22,6 @@ class Category extends Component {
     fetchCategories = () => {
         const {client,  categoryRequest } = this.props
         categoryRequest(client)
-    }
-
-    submit = (category) => {
-
-    }
-
-    update = () => {
-
     }
 
     render() {
@@ -50,11 +42,11 @@ const mapStateToProps = state => ({
     client: state.client
 })
 
-const connected = connect(
+const connected = withRouter(connect(
     mapStateToProps,
     {
         categoryRequest
     }
-)(Category)
+)(Category))
 
 export default connected

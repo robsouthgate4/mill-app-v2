@@ -1,7 +1,6 @@
 import React from 'react';
 import ArchiveForm from './ArchiveForm'
 
-
 export class ArchiveDetailEdit extends React.Component {
 
     componentDidMount() {
@@ -11,26 +10,20 @@ export class ArchiveDetailEdit extends React.Component {
     }
 
     updateSubmit = (values) => {
-        console.log(values)
+
     }
 
     render() {
 
-        const options = [
-            { value: 'one', label: 'One' },
-            { value: 'two', label: 'Two' },
-            { value: 'three', label: 'Three' }
-          ]
-
-        const {archiveById, match} = this.props
+        const {archiveById, match, client } = this.props
 
         if(archiveById === null) return <div>Loading archive form...</div>
 
         return <div className="edit-archive-container edit-screen">
                     <ArchiveForm
+                        client={client}
                         match={match}
                         archiveById={archiveById}
-                        options={options}
                      />
                 </div>;
     }

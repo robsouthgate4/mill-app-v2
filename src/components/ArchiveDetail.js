@@ -1,8 +1,15 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import { CreditList } from './'
+import { Modal, VideoPlayer, ScrollToTopOnMount } from './'
+
 
 export class ArchiveDetail extends React.Component {
+
+    state = {
+        modalVisible: false,
+        videoPlaying: false
+    }
 
     componentDidMount(){
         const { fetchById, match } = this.props
@@ -13,19 +20,44 @@ export class ArchiveDetail extends React.Component {
 
         const {
             archiveById,
-            match
+            archiveId,
+            match,
+            client,
+            categories
         } = this.props
 
         if(archiveById === null) return <div>Loading archive...</div>
 
+        console.log(archiveById)
+
         return <div className="edit-archive-container">
+                    <ScrollToTopOnMount />
+                    <Modal
+                        onCloseClick={() =>
+                            this.setState({
+                                modalVisible: false,
+                                videoPlaying: false
+                            })}
+                        classes={ `modal modal-video ${!this.state.modalVisible ? 'hidden' : '' }`}>
+                        <VideoPlayer
+                            videoPlaying={this.state.videoPlaying}
+                            src={`${process.env.REACT_APP_API_URL}${archiveById._links.video.href}?token=${client.token}`}
+                        />
+                    </Modal>
                     <div className="content">
-                        {archiveById.id}
                         <div className="media-container">
-                            <div className="video-overlay video-play">
+                            <div className="video-overlay video-play" onClick={() =>
+                                        this.setState({
+                                            modalVisible: !this.state.modalVisible,
+                                            videoPlaying: true
+                                        })}>
                                 <span className="mill-icons_play"></span>
                             </div>
-                            <img alt="Stream" className="archive-video-thumbnail" src={`${archiveById._links.thumbnail.href}`}/>
+                            <img
+                                alt="Stream"
+                                className="archive-video-thumbnail"
+                                src={`${process.env.REACT_APP_API_URL}${archiveById._links.thumbnail.href}?token=${client.token}`}
+                            />
                         </div>
 
                         <div className="field">
@@ -86,7 +118,16 @@ export class ArchiveDetail extends React.Component {
 
                         <div className="categories">
                             <h3 className="section-title">Categories</h3>
-                            <p>one, two, three, faks</p>
+                            <p>
+                                {
+                                    archiveById.categories.map((category, index) => {
+                                        return <span key={index}>
+                                            {category.name}
+                                            {index !== archiveById.categories.length - 1 ? ', ' : ''}
+                                        </span>
+                                    })
+                                }
+                            </p>
                         </div>
 
                         <CreditList credits={archiveById.credits}></CreditList>

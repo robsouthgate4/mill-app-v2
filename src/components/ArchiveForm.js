@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RenderMultiselect } from './'
 
+import { categoryRequest } from '../modules/categories/actions'
+
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
@@ -76,28 +78,47 @@ class ArchiveForm extends React.Component {
         console.log(values)
     }
 
+    componentDidMount() {
+        this.fetchCategories();
+    }
+
+    fetchCategories() {
+        const {client, categoryRequest, categories} = this.props
+        if (client && client.token)
+        categoryRequest(client)
+    }
+
     render() {
         const {
                 handleSubmit,
                 archiveById,
                 match,
-                options,
                 pristine,
                 reset,
                 formValues,
                 change,
+                client,
                 submitting,
+                categories: {
+                    list,
+                    requesting
+                },
                 initialValues} = this.props;
+
+        const options = list.map(category => category.name)
+        const defaults = archiveById.categories.map(category => category.name)
 
         return (
             <form className="edit-archive-form" onSubmit={handleSubmit(this.updateSubmit)}>
                 <div className="content">
-                    {archiveById.id}
                     <div className="media-container">
                         <div className="video-overlay thumbnail">
                             <span className="icon_camera"></span>
                         </div>
-                        <img alt="Stream" className="archive-video-thumbnail" src={`${archiveById._links.thumbnail.href}`}/>
+                        <img
+                            alt="Stream"
+                            className="archive-video-thumbnail"
+                            src={`${process.env.REACT_APP_API_URL}${archiveById._links.thumbnail.href}?token=${client.token}`}/>
                     </div>
 
                     <div className="field">
@@ -153,7 +174,18 @@ class ArchiveForm extends React.Component {
 
                     <div className="categories">
                         <h3 className="section-title">Categories</h3>
-                        <Field name="archive.categories" className="category-drop-down" data={options} valueField="value" textField="label" component={RenderMultiselect}/>
+                        {requesting && <div>Loading categories...</div>}
+                        {!requesting && <Field
+                            name="archive.categories"
+                            className="category-drop-down"
+                            data={options}
+                            value={defaults}
+                            valueField="name"
+                            textField="label"
+                            component={RenderMultiselect}/>}
+
+
+
                     </div>
 
                     <div className="credits-editor">
@@ -181,14 +213,16 @@ ArchiveForm = reduxForm({
 
 ArchiveForm = connect(
    state => ({
-        categories: state.categories.list,
+        categories: state.categories,
+        client: state.client,
         formValues: formValueSelector('archiveUpdateForm')(state, 'archive'),
         initialValues: {
             archive: state.archives.archiveById
         }
     }),
     {
-        change
+        change,
+        categoryRequest
     }
 )(ArchiveForm)
 

@@ -3,7 +3,7 @@ import {reduxForm, Field, FieldArray, change, formValueSelector} from 'redux-for
 import {Link} from 'react-router-dom'
 import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc'
 import {connect} from 'react-redux'
-import {categoryUpdateOrder, categoryUpdateRequest} from '../categories/actions'
+import {categoryUpdateOrder, categoryUpdateRequest} from '../modules/categories/actions'
 import _ from 'lodash'
 
 const RenderField = ({ input, label, type, className, meta: { touched, error } }) =>

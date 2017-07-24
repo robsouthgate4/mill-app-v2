@@ -10,7 +10,7 @@ import {
     categoryRequestApi,
     categoryCreateApi,
     categoryUpdateApi
-} from '../api/categoryApi'
+} from '../../api/categoryApi'
 
 import {
   categoryCreateSuccess,
@@ -50,7 +50,6 @@ function* categoryUpdateFlow (action) {
   try {
     // grab the client from our action
     const { client, categories } = action
-    console.log(categories)
     // call to our categoryRequestApi function with the client
     const updatedCategories = yield call(categoryUpdateApi, categories)
     // dispatch the action with our categories!

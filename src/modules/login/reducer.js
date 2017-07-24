@@ -2,6 +2,7 @@ import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT,
 } from './constants'
 
 const initialState = {
@@ -43,6 +44,14 @@ const reducer = function loginReducer (state = initialState, action) {
         requesting: false,
         successful: false,
       }
+
+   case LOGOUT:
+       return {
+         errors: [],
+         messages: [],
+         requesting: false,
+         successful: false,
+       }
 
     default:
       return state
