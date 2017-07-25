@@ -7,6 +7,8 @@ import {
     ARCHIVE_REQUEST_ERROR,
     ARCHIVE_REQUESTING_BY_ID,
     ARCHIVE_REQUEST_BY_ID_SUCCESS,
+    ARCHIVE_UPDATING,
+    ARCHIVE_UPDATE_SUCCESS
 } from './constants'
 
 const initialState = {
@@ -15,7 +17,8 @@ const initialState = {
     orderBy: 'title',
     orderDir: 'asc',
     page: 1,
-    limit: 25,
+    limit: 15,
+    totalArchives: 0,
     requesting: false,
     requestingById: false,
     successful: false,
@@ -39,7 +42,7 @@ const reducer = (state = initialState, action) => {
                 errors: []
             }
 
-            // On success include the new archive into our list
+
         case ARCHIVE_CREATE_SUCCESS:
             return {
                 ...state,
@@ -87,7 +90,8 @@ const reducer = (state = initialState, action) => {
         case ARCHIVE_REQUEST_SUCCESS:
             return {
                 ...state,
-                list: action.archives, // replace with fresh list
+                list: action.archives.items, // replace with fresh list
+                totalArchives: action.archives.total_count,
                 requesting: false,
                 successful: true,
                 messages: [
@@ -141,6 +145,57 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
+
+            case ARCHIVE_UPDATING:
+                return {
+                    ...state,
+                    requesting: true,
+                    successful: false,
+                    messages: [
+                        {
+                            body: 'Archive updating',
+                            time: new Date()
+                        }
+                    ],
+                    errors: []
+                }
+
+            case ARCHIVE_UPDATING:
+                return {
+                    ...state,
+                    requesting: true,
+                    successful: false,
+                    messages: [
+                        {
+                            body: 'Archive updating',
+                            time: new Date()
+                        }
+                    ],
+                    errors: []
+                }
+
+            case ARCHIVE_UPDATE_SUCCESS:
+                return {
+                    ...state,
+                    requesting: false,
+                    successful: true,
+                    list: state.list.map((item, index) => {
+                        if (item.id !== action.id) {
+                            return item
+                        }
+                        return {
+                            ...item,
+                            ...action.item
+                        }
+                    }),
+                    messages: [
+                        {
+                            body: 'Archive updated',
+                            time: new Date()
+                        }
+                    ],
+                    errors: []
+                }
 
         default:
             return state

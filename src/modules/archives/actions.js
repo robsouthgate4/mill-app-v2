@@ -16,11 +16,11 @@ export const archiveCreate = (client, archive) => {
     return {type: ARCHIVE_CREATING, client, archive}
 }
 
-export const archiveCreateSuccess = (archive) => {
+export const archiveCreateSuccess = archive => {
     return {type: ARCHIVE_CREATE_SUCCESS, archive}
 }
 
-export const archiveCreateError = (error) => {
+export const archiveCreateError = error => {
     return {type: ARCHIVE_CREATE_ERROR, error}
 }
 
@@ -28,22 +28,30 @@ export const archiveRequest = (client, page, limit) => {
     return {type: ARCHIVE_REQUESTING, client, page, limit}
 }
 
-export const archiveUpdate = (client, id, archive) => {
-    return {type: ARCHIVE_UPDATING, client, id, archive}
+export const archiveUpdate = (client, archive, id) => {
+    return {type: ARCHIVE_UPDATING, client, archive, id}
+}
+
+export const archiveUpdateSuccess = (archive, id) => {
+    return {type: ARCHIVE_UPDATE_SUCCESS, archive, id}
+}
+
+export const archiveUpdateError = error => {
+    return {type: ARCHIVE_UPDATE_ERROR, error}
 }
 
 export const archiveRequestById = (client, id) => {
     return {type: ARCHIVE_REQUESTING_BY_ID, client, id}
 }
 
-export const archiveRequestSuccess = (archives) => {
+export const archiveRequestSuccess = archives => {
     return {type: ARCHIVE_REQUEST_SUCCESS, archives}
 }
 
-export const archiveRequestByIdSuccess = (archive) => {
+export const archiveRequestByIdSuccess = archive => {
     return {type: ARCHIVE_REQUEST_BY_ID_SUCCESS, archive}
 }
 
-export const archiveRequestError = (error) => {
+export const archiveRequestError = error => {
     return {type: ARCHIVE_REQUEST_ERROR, error}
 }

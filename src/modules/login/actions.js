@@ -10,7 +10,6 @@ export const loginRequest = ({ username, password }) => ({
 })
 
 export const logout = () => {
-    console.log('dispatched')
     return {
         type: LOGOUT
     }

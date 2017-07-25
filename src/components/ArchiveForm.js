@@ -2,9 +2,12 @@ import React, {PropTypes} from 'react'
 import {reduxForm, Field, FieldArray, change, formValueSelector} from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { RenderMultiselect } from './'
+import Img from 'react-image'
+
+import { RenderMultiselect, Spinner } from './'
 
 import { categoryRequest } from '../modules/categories/actions'
+import { archiveUpdate } from '../modules/archives/actions'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -75,7 +78,9 @@ const RenderCheckbox = ({ input, label, type, meta: { touched, error } }) => (
 class ArchiveForm extends React.Component {
 
     updateSubmit = (values) => {
-        console.log(values)
+        const archive = values.archive
+        const {client, archiveUpdate, archiveById} = this.props
+        archiveUpdate(client, archive, archiveById.id)
     }
 
     componentDidMount() {
@@ -99,6 +104,7 @@ class ArchiveForm extends React.Component {
                 change,
                 client,
                 submitting,
+                archives,
                 categories: {
                     list,
                     requesting
@@ -107,6 +113,8 @@ class ArchiveForm extends React.Component {
 
         const options = list.map(category => category.name)
         const defaults = archiveById.categories.map(category => category.name)
+        const image = `${process.env.REACT_APP_API_URL}${archiveById._links.thumbnail.href}?token=${client.token}`
+
 
         return (
             <form className="edit-archive-form" onSubmit={handleSubmit(this.updateSubmit)}>
@@ -115,10 +123,12 @@ class ArchiveForm extends React.Component {
                         <div className="video-overlay thumbnail">
                             <span className="icon_camera"></span>
                         </div>
-                        <img
-                            alt="Stream"
+                        <Img
+                            alt={archiveById.name}
                             className="archive-video-thumbnail"
-                            src={`${process.env.REACT_APP_API_URL}${archiveById._links.thumbnail.href}?token=${client.token}`}/>
+                            src={[image, 'http://placehold.it/523x297']}
+                            loader={<Spinner classes="visible mini-screen" />}
+                        />
                     </div>
 
                     <div className="field">
@@ -151,25 +161,27 @@ class ArchiveForm extends React.Component {
                 <div className="sidebar">
                     <div className="edit-button-container">
                         <Link to={`/archives/${match.params.id}`}>
-                            <button className="default-btn white-btn cancel" type="button">Cancel</button>
+                            <button disabled={submitting} className="default-btn white-btn cancel" type="button">Cancel</button>
                         </Link>
-                        <button className="default-btn black-btn save" type="submit">Save changes</button>
+                        <button disabled={submitting} className="default-btn black-btn save" type="submit">Save changes</button>
                     </div>
+
+                    {archives.requesting && <div>Updating</div>}
 
                     <div className="ipad-push-container">
                         <h3 className="section-title">Available on iPad</h3>
-                        <div className="toggleSwitch push-ipad" onClick={ (evt) => change(`archive.enabled`, !formValues.enabled)}>
+                        <div className="toggleSwitch push-ipad" onClick={ (evt) => change(`archive.sync_to_device`, !formValues.sync_to_device)}>
                             <Field
                                 component={RenderCheckbox}
                                 className="syncVideo ipad-push-checkbox toggleSwitch-checkbox"
-                                name="archive.enabled"
+                                name="archive.sync_to_device"
                                 type="checkbox"/>
                         </div>
                     </div>
 
                     <div className="url">
                         <h3 className="section-title">Share Url</h3>
-                        <Field name="archive.article_url" component="input" type="text"></Field>
+                        <Field name="archive.metadata.article_url" component="input" type="text"></Field>
                     </div>
 
                     <div className="categories">
@@ -212,6 +224,7 @@ ArchiveForm = connect(
    state => ({
         categories: state.categories,
         client: state.client,
+        archives: state.archives,
         formValues: formValueSelector('archiveUpdateForm')(state, 'archive'),
         initialValues: {
             archive: state.archives.archiveById
@@ -219,7 +232,8 @@ ArchiveForm = connect(
     }),
     {
         change,
-        categoryRequest
+        categoryRequest,
+        archiveUpdate
     }
 )(ArchiveForm)
 

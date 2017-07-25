@@ -2,17 +2,25 @@ import React, { PropTypes } from 'react'
 import { ArchiveListItem } from './ArchiveListItem'
 import ReactPaginate from 'react-paginate';
 
-import { Spinner } from './'
+import { Spinner, ScrollToTopOnMount } from './'
 
 export const ArchiveList = (props) => {
 
-    const { archives, requesting, client, onPageClick, page } = props
+    const { archives,
+            requesting,
+            client,
+            onPageClick,
+            page,
+            totalArchives,
+            limit} = props
 
-    const pageCount = Math.ceil(3200 / 25) //TODO: update to actual totals.
+    const pageCount = Math.ceil(totalArchives / limit) //TODO: update to actual totals.
 
     return (
 
         <div className="archive-list-container">
+
+            {requesting && <ScrollToTopOnMount/>}
 
             <Spinner classes={`spinner-screen ${requesting ? 'visible' : ''}`} />
 
@@ -36,6 +44,7 @@ export const ArchiveList = (props) => {
             </div>
             <ReactPaginate
                 previousLabel={""}
+                initialPage={page}
                 forcePage={page}
                 nextLabel={""}
                 breakLabel={<a href="">...</a>}

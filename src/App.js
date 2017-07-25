@@ -7,7 +7,8 @@ import Login from './modules/login'
 import Archives from './modules/archives'
 import Categories from './modules/categories'
 import Header from './components/Header'
-import NotFound from './components'
+import { NotFound } from './components'
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import {checkAuthorization, checkIndexAuthorization} from './lib/check-auth'
 
@@ -40,15 +41,13 @@ export const App = (props) => {
     const { store } = props
     return (
         <Provider store={store}>
-            <Router onUpdate={(location) => {
-                console.log('hello')
-                window.scrollTo(0, 0)
-            }} history={history}>
+            <Router history={history}>
                 <Switch>
-                    <Route path="/login" component={Login}/>
-                    <PrivateRoute store={store} path="/archives" component={Archives}></PrivateRoute>
-                    <PrivateRoute store={store} path="/categories" component={Categories}></PrivateRoute>
-
+                        <PrivateRoute exact store={store} location={location} path="/" component={Archives}></PrivateRoute>
+                        <Route location={location} path="/login" component={Login}/>
+                        <PrivateRoute store={store} location={location} path="/archives" component={Archives}></PrivateRoute>
+                        <PrivateRoute store={store} location={location} path="/categories" component={Categories}></PrivateRoute>
+                        <Route location={location} component={NotFound}></Route>
                 </Switch>
             </Router>
         </Provider>

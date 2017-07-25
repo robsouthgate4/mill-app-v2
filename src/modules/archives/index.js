@@ -1,9 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
+import queryString from 'query-string'
+
+import history from '../../lib/history'
+
 import { ArchiveList } from '../../components/ArchiveList'
-import { ArchiveDetail } from '../../components/ArchiveDetail'
+import  ArchiveDetail  from '../../components/ArchiveDetail'
 import { ArchiveDetailEdit } from '../../components'
 import Header from '../../components/Header'
 
@@ -22,12 +26,13 @@ class Archives extends Component {
     }
 
     componentDidMount() {
-        const { page } = this.props
+        let { page, location } = this.props
+        window.scrollTo(0, 0)
         this.fetchArchives( page )
     }
 
     fetchArchives = (page) => {
-        const {client, archiveRequest, limit, archives} = this.props
+        const {client, archiveRequest, limit, archives, match} = this.props
         if (client && client.token)
         archiveRequest(client, page, limit)
     }
@@ -40,16 +45,17 @@ class Archives extends Component {
         //reset()
     }
 
+    handlePageClick = (data) => {
+        const { client, match } = this.props
+        const page = data.selected + 1
+        if (client && client.token)
+        this.fetchArchives(page)
+    }
+
     fetchById = (id) => {
         const {client, archiveRequestById} = this.props
         if (client && client.token)
         archiveRequestById(client, id)
-    }
-
-    handlePageClick = (data) => {
-        const page = data.selected + 1
-        this.fetchArchives(page)
-        window.scrollTo(0, 0)
     }
 
     render() {
@@ -65,6 +71,8 @@ class Archives extends Component {
                 page,
                 requesting,
                 requestingById,
+                limit,
+                totalArchives,
                 successful,
                 messages,
                 errors
@@ -77,9 +85,11 @@ class Archives extends Component {
 
                     <Route exact path="/archives" render={(props) =>
                         <ArchiveList
-                            page={page}
+                            page={page - 1}
                             onPageClick={this.handlePageClick}
                             client={client}
+                            totalArchives={totalArchives}
+                            limit={limit}
                             requesting={requesting}
                             archives={list}>
                         </ArchiveList>}
@@ -88,10 +98,7 @@ class Archives extends Component {
                     <Route exact path="/archives/:id" render={(match) =>{
                             return <ArchiveDetail
                                     {...match}
-                                    client={client}
-                                    requestingById={requestingById}
-                                    archiveById={archiveById}
-                                    fetchById={this.fetchById}>
+                                    client={client}>
                                 </ArchiveDetail>
                         }}
                     />
@@ -107,6 +114,7 @@ class Archives extends Component {
                         }}
                      />
 
+                    <Redirect to="/archives"/>
                 </Switch>
             </div>
         )

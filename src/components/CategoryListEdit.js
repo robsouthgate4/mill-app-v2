@@ -11,14 +11,10 @@ export class CategoryListEdit extends React.Component {
         super(props);
     }
 
-    onSaveClick() {
-
-    }
-
     render() {
         const { categories } = this.props
         return (
-            <div className="category-list-container edit">                
+            <div className="category-list-container edit">
                 <div className='category-list editable flex-table'>
                     <CategoryForm categories={categories} />
                 </div>

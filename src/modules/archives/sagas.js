@@ -4,7 +4,7 @@ import {
     archiveCreateApi,
     archiveRequestApi,
     archiveUpdateApi,
-    archiveRequestById  } from '../../api/archiveApi'
+    archiveRequestByIdApi  } from '../../api/archiveApi'
 
 import {
     categoryRequestApi } from '../../api/categoryApi'
@@ -33,18 +33,17 @@ function* archiveCreateFlow (action) {
 
     yield put(archiveCreateSuccess(createdArchive))
   } catch (error) {
-    // same with error
+
     yield put(archiveCreateError(error))
   }
 }
 
 function* archiveRequestFlow (action) {
   try {
-    const { client, page, id = null, limit } = action
+    const { client, page, limit } = action
+    const archives = yield call(archiveRequestApi, client, page, limit)
 
-    const archives = yield call(archiveRequestApi, client, id, page, limit)
-
-    yield put(archiveRequestSuccess(archives.items))
+    yield put(archiveRequestSuccess(archives))
 
   } catch (error) {
     yield put(archiveRequestError(error))
@@ -54,14 +53,10 @@ function* archiveRequestFlow (action) {
 function* archiveRequestByIdFlow (action) {
   try {
 
-    const { client, id, page = 1 } = action
-    const archive = yield call(archiveRequestApi, client, id, page)
-
-    // We also need to get updated list of categories
-    const categories = yield call(categoryRequestApi, client)
+    const { client, id } = action
+    const archive = yield call(archiveRequestByIdApi, client, id)
 
     yield put(archiveRequestByIdSuccess(archive))
-    yield 
 
   } catch (error) {
     yield put(archiveRequestError(error))
@@ -70,11 +65,13 @@ function* archiveRequestByIdFlow (action) {
 
 function* archiveUpdateFlow (action) {
     try {
-        const { client, id, archive } = action
-        const responseArchive = yield call(archiveUpdateApi, client, id, archive)
+
+        const { client, archive, id } = action
+        const responseArchive = yield call(archiveUpdateApi, client, archive, id)
+        yield put(archiveUpdateSuccess(responseArchive))
 
     } catch(error) {
-        //yield put(archiveUpdateError(error))
+        yield put(archiveUpdateError(error))
     }
 }
 

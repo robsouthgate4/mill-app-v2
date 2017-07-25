@@ -6,9 +6,12 @@ import {
     CATEGORY_REQUEST_SUCCESS,
     CATEGORY_REQUEST_ERROR,
     CATEGORY_UPDATE_ORDER,
-    CATEGORY_UPDATE_REQUESTING,
+    CATEGORY_UPDATING,
     CATEGORY_UPDATE_SUCCESS,
-    CATEGORY_UPDATE_ERROR
+    CATEGORY_UPDATE_ERROR,
+    CATEGORY_DELETING,
+    CATEGORY_DELETE_SUCCESS,
+    CATEGORY_DELETE_ERROR
 } from './constants'
 
 const initialState = {
@@ -29,22 +32,22 @@ const reducer = (state = initialState, action) => {
                 successful: false,
                 messages: [
                     {
-                        body: `Archive: ${action.category.name} being created...`,
+                        body: `Category: ${action.category.name} being created...`,
                         time: new Date()
                     }
                 ],
                 errors: []
             }
 
-            // On success include the new category into our list
         case CATEGORY_CREATE_SUCCESS:
             return {
+                ...state,
                 list: state.list.concat([action.category]),
                 requesting: false,
                 successful: true,
                 messages: [
                     {
-                        body: `Widget: ${action.category.name} awesomely created!`,
+                        body: `Category: ${action.category.name} created!`,
                         time: new Date()
                     }
                 ],
@@ -109,7 +112,7 @@ const reducer = (state = initialState, action) => {
                 ]
             }
 
-        case CATEGORY_UPDATE_REQUESTING:
+        case CATEGORY_UPDATING:
             return {
                 ...state,
                 requesting: true,
@@ -159,6 +162,44 @@ const reducer = (state = initialState, action) => {
                 messages: [],
                 tempCategories: action.categories,
                 errors: []
+            }
+
+        case CATEGORY_DELETING:
+            return {
+                ...state,
+                requesting: true,
+                successful: false,
+                messages: [
+                    {
+                        body: 'Deleting category...',
+                        time: new Date()
+                    }
+                ],
+                errors: []
+            }
+
+        case CATEGORY_DELETE_SUCCESS:
+            return {
+                ...state,
+                requesting: false,
+                successful: true,
+                list: action.categories,
+                messages: [],
+                errors: []
+            }
+
+        case CATEGORY_DELETE_ERROR:
+            return {
+                ...state,
+                requesting: false,
+                successful: false,
+                messages: [],
+                errors: state.errors.concat[
+                    {
+                        body : action.error.toString(),
+                        time : new Date()
+                    }
+                ]
             }
 
         default:
