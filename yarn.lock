@@ -4838,6 +4838,10 @@ react-html5video@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-html5video/-/react-html5video-2.2.0.tgz#a75b3040a760a3fc9ae35b84e9537c55d601609a"
 
+react-moment@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-0.6.0.tgz#2713522d02b18cce5abac38bc0e31e73babb8101"
+
 react-paginate@^4.4.3:
   version "4.4.3"
   resolved "https://registry.yarnpkg.com/react-paginate/-/react-paginate-4.4.3.tgz#11817ece628fa59c54a2df7968c854ed64b99077"

@@ -183,9 +183,6 @@ class ArchiveForm extends React.Component {
                             valueField="name"
                             textField="label"
                             component={RenderMultiselect}/>}
-
-
-
                     </div>
 
                     <div className="credits-editor">

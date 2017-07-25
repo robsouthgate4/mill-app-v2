@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import {ArchiveList} from '../../components/ArchiveList'
-import {ArchiveDetail} from '../../components/ArchiveDetail'
-import {ArchiveDetailEdit} from '../../components'
+import { ArchiveList } from '../../components/ArchiveList'
+import { ArchiveDetail } from '../../components/ArchiveDetail'
+import { ArchiveDetailEdit } from '../../components'
 import Header from '../../components/Header'
 
 import {
@@ -22,15 +22,15 @@ class Archives extends Component {
     }
 
     componentDidMount() {
-        this.fetchArchives()
+        const { page } = this.props
+        this.fetchArchives( page )
     }
 
-    fetchArchives = (id) => {
-        const {client, archiveRequest, page, limit, archives} = this.props
-        if (client.token && archives.list.length === 0)
-        archiveRequest(client, id, page, limit)
+    fetchArchives = (page) => {
+        const {client, archiveRequest, limit, archives} = this.props
+        if (client && client.token)
+        archiveRequest(client, page, limit)
     }
-
 
     updateArchive = (archive) => {
         const { client, archiveUpdate, reset, archiveById } = this.props
@@ -46,6 +46,12 @@ class Archives extends Component {
         archiveRequestById(client, id)
     }
 
+    handlePageClick = (data) => {
+        const page = data.selected + 1
+        this.fetchArchives(page)
+        window.scrollTo(0, 0)
+    }
+
     render() {
         const {
             match,
@@ -58,6 +64,7 @@ class Archives extends Component {
                 list,
                 page,
                 requesting,
+                requestingById,
                 successful,
                 messages,
                 errors
@@ -70,6 +77,8 @@ class Archives extends Component {
 
                     <Route exact path="/archives" render={(props) =>
                         <ArchiveList
+                            page={page}
+                            onPageClick={this.handlePageClick}
                             client={client}
                             requesting={requesting}
                             archives={list}>
@@ -80,6 +89,7 @@ class Archives extends Component {
                             return <ArchiveDetail
                                     {...match}
                                     client={client}
+                                    requestingById={requestingById}
                                     archiveById={archiveById}
                                     fetchById={this.fetchById}>
                                 </ArchiveDetail>
@@ -113,7 +123,6 @@ Archives.propTypes = {
 const mapStateToProps = (state) => ({
     client: state.client,
     archives: state.archives,
-    archiveById: state.archives.archiveById,
     page: state.archives.page,
     limit: state.archives.limit
 })

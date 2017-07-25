@@ -17,6 +17,11 @@ div {
     display: none !important;
 }
 
+.hidden-with-opacity {
+    opacity: 0;
+    pointer-events: none;
+}
+
 a {
     text-decoration: none;
     outline: 0 !important;
@@ -536,32 +541,36 @@ th {
     }
 }
 
-.archive-pagination {
-    margin-top: 47px;
-    margin-bottom: 100px;
-
-    ul {
+    ul.archive-pagination {
         display: flex;
         list-style: none;
         justify-content: center;
-
+        margin-top: 47px;
+        margin-bottom: 100px;
         li {
             position: relative;
             padding-left: 3px;
             padding-right: 3px;
 
-            &.active span {
+            &.next, &.previous {
+                a {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            &.active a {
                 font-family: 'ProximaNova-Bold', Arial, sans-serif;
             }
 
-            span {
+            a {
                 font-family: 'ProximaNova-Regular', Arial, sans-serif;
                 font-size: 16px;
                 cursor: pointer;
             }
 
-            &:first-child span,
-            &:last-child span {
+            &:first-child a,
+            &:last-child a {
                 display: block;
                 min-width: 15px;
                 text-indent: -9999px;
@@ -589,7 +598,7 @@ th {
             }
         }
     }
-}
+
 
 .boolean-icon {
     display: flex;
@@ -1285,7 +1294,6 @@ div.main .button-link {
     z-index: 100;
     overflow: hidden;
     transition: all 0.7s;
-
     &.visible {
         opacity: 1;
     }
@@ -2230,4 +2238,45 @@ input {
 .current_selected {
     color: #0286ED !important;
     border-bottom: 3px solid #0286ED;
+}
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+.loader {
+  font-size: 6px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 0.5em solid rgba(255, 255, 255, 0.5);
+  border-right: 0.5em solid rgba(255, 255, 255, 0.5);
+  border-bottom: 0.5em solid rgba(255, 255, 255, 0.5);
+  border-left: 0.5em solid #000;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 0.8s infinite linear;
+  animation: load8 0.8s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

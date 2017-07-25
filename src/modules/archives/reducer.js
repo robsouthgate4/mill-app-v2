@@ -17,6 +17,7 @@ const initialState = {
     page: 1,
     limit: 25,
     requesting: false,
+    requestingById: false,
     successful: false,
     messages: [],
     errors: []
@@ -115,7 +116,7 @@ const reducer = (state = initialState, action) => {
         case ARCHIVE_REQUESTING_BY_ID:
             return {
                 ...state,
-                requesting: true,
+                requestingById: true,
                 successful: false,
                 messages: [
                     {
@@ -130,7 +131,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 archiveById: action.archive,
-                requesting: false,
+                requestingById: false,
                 successful: true,
                 messages: [
                     {

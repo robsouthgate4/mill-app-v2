@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import { CreditList } from './'
-import { Modal, VideoPlayer, ScrollToTopOnMount } from './'
+import { Modal, VideoPlayer, ScrollToTopOnMount, Spinner } from './'
+
+
 
 
 export class ArchiveDetail extends React.Component {
@@ -23,12 +25,11 @@ export class ArchiveDetail extends React.Component {
             archiveId,
             match,
             client,
-            categories
+            categories,
+            requestingById
         } = this.props
 
-        if(archiveById === null) return <div>Loading archive...</div>
-
-        console.log(archiveById)
+        if(requestingById) return <Spinner classes={`spinner-screen ${requestingById ? 'visible' : ''}`} />
 
         return <div className="edit-archive-container">
                     <ScrollToTopOnMount />
@@ -108,7 +109,7 @@ export class ArchiveDetail extends React.Component {
 
                         <div className="ipad-push-container">
                             <h3 className="section-title">Available on iPad</h3>
-                            <div className={`boolean-icon enabled_${archiveById.enabled}`}></div>
+                            <div className={`boolean-icon enabled_${archiveById.enabled || false}`}></div>
                         </div>
 
                         <div className="url">

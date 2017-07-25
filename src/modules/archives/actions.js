@@ -24,8 +24,8 @@ export const archiveCreateError = (error) => {
     return {type: ARCHIVE_CREATE_ERROR, error}
 }
 
-export const archiveRequest = (client, id, page = 1, limit) => {
-    return {type: ARCHIVE_REQUESTING, client, id, page, limit}
+export const archiveRequest = (client, page, limit) => {
+    return {type: ARCHIVE_REQUESTING, client, page, limit}
 }
 
 export const archiveUpdate = (client, id, archive) => {

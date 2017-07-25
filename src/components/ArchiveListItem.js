@@ -7,7 +7,7 @@ export const ArchiveListItem = (props) => {
         <Link to={`/archives/${archive.id}`}>
             <div className="flex-table-cell">
                 <div>
-                    <div className={`boolean-icon enabled_${archive.enabled || true}`}></div>
+                    <div className={`boolean-icon enabled_${archive.enabled || false}`}></div>
                 </div>
             </div>
             <div className="flex-table-cell thumbnail-cell">
