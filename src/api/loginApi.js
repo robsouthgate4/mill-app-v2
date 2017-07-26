@@ -9,8 +9,6 @@ export const loginApi = (username, password) => {
     formData.append("username", username)
     formData.append("password", password)
 
-    console.log(username, password)
-
     return fetch(loginUrl, {
         method: 'POST',
         body: formData

@@ -545,7 +545,11 @@ div#header {
     height: 30px;
     background-color: #1E1E1E;
     border-bottom: 2px solid #5a5a5a;
-    outline: 0; }
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    outline: 0;
+    color: #8d8d8d; }
   div#header .search-container {
     align-self: center; }
     div#header .search-container input {
@@ -1537,7 +1541,7 @@ input + label {
       margin-bottom: 10px;
       width: 34px;
       height: 29px;
-      background: url("/assets/images/admin/icons/icons_camera.svg") no-repeat center center; }
+      background: url("./assets/images/admin/icons/icons_camera.svg") no-repeat center center; }
     .edit-archive-container .video-overlay.thumbnail:hover span:first-child {
       margin-top: -5px; }
     .edit-archive-container .video-overlay.video-play {

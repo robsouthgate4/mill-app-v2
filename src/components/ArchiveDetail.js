@@ -48,8 +48,7 @@ class ArchiveDetail extends React.Component {
 
         return <div className="edit-archive-container">
                      <ScrollToTopOnMount />
-                     <Modal
-                         onCloseClick={() =>
+                     <Modal onCloseClick={() =>
                              this.setState({
                                  modalVisible: false,
                                  videoPlaying: false

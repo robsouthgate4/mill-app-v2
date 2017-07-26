@@ -7,7 +7,7 @@ import Img from 'react-image'
 import { RenderMultiselect, Spinner } from './'
 
 import { categoryRequest } from '../modules/categories/actions'
-import { archiveUpdate } from '../modules/archives/actions'
+import { archiveUpdate, archiveUploadingFile } from '../modules/archives/actions'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -77,6 +77,11 @@ const RenderCheckbox = ({ input, label, type, meta: { touched, error } }) => (
 
 class ArchiveForm extends React.Component {
 
+    state = {
+        file: '',
+        imagePreviewUrl: ''
+    }
+
     updateSubmit = (values) => {
         const archive = values.archive
         const {client, archiveUpdate, archiveById} = this.props
@@ -87,10 +92,38 @@ class ArchiveForm extends React.Component {
         this.fetchCategories();
     }
 
-    fetchCategories() {
+    fetchCategories = () => {
         const {client, categoryRequest, categories} = this.props
         if (client && client.token)
         categoryRequest(client)
+    }
+
+    triggerFileSelect = () => {
+        this.fileInput.click();
+    }
+
+    handleImageChange = (evt) => {
+
+        evt.preventDefault()
+
+        const { client, archiveUploadingFile, archiveById } = this.props
+
+        let reader = new FileReader()
+        let file = evt.target.files[0]
+
+        reader.onloadend = () => {
+
+            this.setState({
+                file: file,
+                imagePreviewUrl: reader.result
+            });
+
+            if(client && client.token)
+            archiveUploadingFile(client, file, archiveById.id);
+
+        }
+
+        reader.readAsDataURL(file)
     }
 
     render() {
@@ -114,21 +147,27 @@ class ArchiveForm extends React.Component {
         const options = list.map(category => category.name)
         const defaults = archiveById.categories.map(category => category.name)
         const image = `${process.env.REACT_APP_API_URL}${archiveById._links.thumbnail.href}?token=${client.token}`
-
+        const previewImage = this.state.imagePreviewUrl
 
         return (
             <form className="edit-archive-form" onSubmit={handleSubmit(this.updateSubmit)}>
                 <div className="content">
                     <div className="media-container">
-                        <div className="video-overlay thumbnail">
+                        {!requesting && <div onClick={this.triggerFileSelect} className="video-overlay thumbnail">
                             <span className="icon_camera"></span>
-                        </div>
+                            <span>Change thumbnail</span>
+                        </div>}
                         <Img
                             alt={archiveById.name}
                             className="archive-video-thumbnail"
-                            src={[image, 'http://placehold.it/523x297']}
+                            src={[previewImage || image, 'http://placehold.it/523x297']}
                             loader={<Spinner classes="visible mini-screen" />}
                         />
+                    </div>
+
+                    <div className="field" className="hidden">
+                        <label className="field-label" htmlFor="fiel-label">Upload file</label>
+                        <input type="file" onChange={this.handleImageChange} ref={(input) => { this.fileInput = input; }} />
                     </div>
 
                     <div className="field">
@@ -163,7 +202,7 @@ class ArchiveForm extends React.Component {
                         <Link to={`/archives/${match.params.id}`}>
                             <button disabled={submitting} className="default-btn white-btn cancel" type="button">Cancel</button>
                         </Link>
-                        <button disabled={submitting} className="default-btn black-btn save" type="submit">Save changes</button>
+                        <button disabled={submitting, pristine} className="default-btn black-btn save" type="submit">Save changes</button>
                     </div>
 
                     {archives.requesting && <div>Updating</div>}
@@ -233,7 +272,8 @@ ArchiveForm = connect(
     {
         change,
         categoryRequest,
-        archiveUpdate
+        archiveUpdate,
+        archiveUploadingFile
     }
 )(ArchiveForm)
 

@@ -8,7 +8,10 @@ import {
     ARCHIVE_REQUESTING_BY_ID,
     ARCHIVE_REQUEST_BY_ID_SUCCESS,
     ARCHIVE_UPDATING,
-    ARCHIVE_UPDATE_SUCCESS
+    ARCHIVE_UPDATE_SUCCESS,
+    ARCHIVE_UPLOADING_FILE,
+    ARCHIVE_UPLOAD_FILE_SUCCESS,
+    ARCHIVE_UPLOAD_FILE_ERROR
 } from './constants'
 
 const initialState = {
@@ -19,8 +22,13 @@ const initialState = {
     page: 1,
     limit: 15,
     totalArchives: 0,
+    uploadFile: null,
+    imagePreviewUrl: '',
     requesting: false,
     requestingById: false,
+    requestingUpload: false,
+    uploadSuccessful: false,
+    uploadError: false,
     successful: false,
     messages: [],
     errors: []
@@ -41,8 +49,6 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
-
-
         case ARCHIVE_CREATE_SUCCESS:
             return {
                 ...state,
@@ -57,7 +63,6 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
-
         case ARCHIVE_CREATE_ERROR:
             return {
                 ...state,
@@ -71,7 +76,6 @@ const reducer = (state = initialState, action) => {
                     }
                 ])
             }
-
         case ARCHIVE_REQUESTING:
             return {
                 ...state,
@@ -86,7 +90,6 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
-
         case ARCHIVE_REQUEST_SUCCESS:
             return {
                 ...state,
@@ -116,7 +119,6 @@ const reducer = (state = initialState, action) => {
                     }
                 ]
             }
-
         case ARCHIVE_REQUESTING_BY_ID:
             return {
                 ...state,
@@ -130,7 +132,6 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
-
         case ARCHIVE_REQUEST_BY_ID_SUCCESS:
             return {
                 ...state,
@@ -145,8 +146,7 @@ const reducer = (state = initialState, action) => {
                 ],
                 errors: []
             }
-
-            case ARCHIVE_UPDATING:
+        case ARCHIVE_UPDATING:
                 return {
                     ...state,
                     requesting: true,
@@ -159,43 +159,68 @@ const reducer = (state = initialState, action) => {
                     ],
                     errors: []
                 }
-
-            case ARCHIVE_UPDATING:
-                return {
-                    ...state,
-                    requesting: true,
-                    successful: false,
-                    messages: [
-                        {
-                            body: 'Archive updating',
-                            time: new Date()
-                        }
-                    ],
-                    errors: []
-                }
-
-            case ARCHIVE_UPDATE_SUCCESS:
-                return {
-                    ...state,
-                    requesting: false,
-                    successful: true,
-                    list: state.list.map((item, index) => {
-                        if (item.id !== action.id) {
-                            return item
-                        }
-                        return {
-                            ...item,
-                            ...action.item
-                        }
-                    }),
-                    messages: [
-                        {
-                            body: 'Archive updated',
-                            time: new Date()
-                        }
-                    ],
-                    errors: []
-                }
+        case ARCHIVE_UPDATE_SUCCESS:
+            return {
+                ...state,
+                requesting: false,
+                successful: true,
+                list: state.list.map((item, index) => {
+                    if (item.id !== action.id) {
+                        return item
+                    }
+                    return {
+                        ...item,
+                        ...action.item
+                    }
+                }),
+                messages: [
+                    {
+                        body: 'Archive updated',
+                        time: new Date()
+                    }
+                ],
+                errors: []
+            }
+        case ARCHIVE_UPLOADING_FILE:
+            return {
+                ...state,
+                requestingUpload: true,
+                uploadSuccessfull: false,
+                messages: [
+                    {
+                        body: 'Archive updloading file...',
+                        time: new Date()
+                    }
+                ],
+                errors: []
+            }
+        case ARCHIVE_UPLOAD_FILE_SUCCESS:
+            return {
+                ...state,
+                requestingUpload: false,
+                uploadSuccessfull: true,
+                messages: [
+                    {
+                        body: 'Archive file uploaded',
+                        time: new Date()
+                    }
+                ],
+                errors: []
+            }
+        case ARCHIVE_UPLOAD_FILE_ERROR:
+            return {
+                ...state,
+                requestingUpload: false,
+                uploadSuccessfull: false,
+                uploadError: true,
+                messages: [],
+                errors: state.errors.concat([
+                    {
+                        body: action.error.toString(),
+                        time: new Date()
+                    }
+                ])
+            }
 
         default:
             return state

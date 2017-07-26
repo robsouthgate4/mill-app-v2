@@ -4,13 +4,13 @@ import {handleApiErrors} from '../lib/api-errors'
 const categoriesUrl = `${process.env.REACT_APP_API_URL}/api/categories`
 
 export const categoryCreateApi = (client, category) => {
-    const url = `${categoriesUrl}/?token=${client.token}`
+    const url = `${categoriesUrl}?token=${client.token}`
 
     const categoryObj = {
-            archive_count: 0,
-            name: category,
-            enabled: false
-        }
+        archive_count: 0,
+        name: category,
+        enabled: false
+    }
 
     console.log(categoryObj)
 
